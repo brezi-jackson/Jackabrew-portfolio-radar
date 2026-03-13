@@ -127,25 +127,51 @@ def to_yfinance_symbol(market: str, ticker: str) -> str:
 @st.cache_data(ttl=900)
 def fetch_fx_rates(currencies):
     rates = {BASE_CURRENCY: 1.0, "USD": 1.0}
-    needed = {c for c in currencies if c and c not in rates}
-    symbols = [FX_SYMBOLS.get(cur) for cur in needed]
-    symbols = [s for s in symbols if s]
+    symbol_map = {}
+    for cur in currencies:
+        if cur and cur not in rates:
+            sym = FX_SYMBOLS.get(cur)
+            if sym:
+                symbol_map[sym] = cur
+    symbols = list(symbol_map.keys())
     if not symbols:
         return rates
 
-    data = yf.download(symbols, period="5d", interval="1d", progress=False)
-    if isinstance(data, pd.DataFrame) and "Adj Close" in data.columns:
-        data = data["Adj Close"].iloc[-1]
+    try:
+        data = yf.download(symbols, period="5d", interval="1d", progress=False)
+    except Exception:
+        return rates
 
-    if isinstance(data, pd.Series):
-        for cur, sym in FX_SYMBOLS.items():
+    if isinstance(data, pd.DataFrame):
+        if data.empty:
+            return rates
+        subset = data
+        if isinstance(data.columns, pd.MultiIndex):
+            try:
+                subset = data["Adj Close"]
+            except KeyError:
+                subset = data
+        elif "Adj Close" in data.columns:
+            subset = data["Adj Close"]
+        try:
+            last_row = subset.iloc[-1]
+        except IndexError:
+            return rates
+        if isinstance(last_row, pd.Series):
+            for sym, cur in symbol_map.items():
+                if sym in last_row.index:
+                    rates[cur] = float(last_row[sym])
+        else:
+            sym = symbols[0]
+            cur = symbol_map.get(sym)
+            if cur:
+                rates[cur] = float(last_row)
+    elif isinstance(data, pd.Series):
+        if data.empty:
+            return rates
+        for sym, cur in symbol_map.items():
             if sym in data.index:
                 rates[cur] = float(data[sym])
-    elif isinstance(data, pd.DataFrame):
-        last_row = data.iloc[-1]
-        for cur, sym in FX_SYMBOLS.items():
-            if sym in last_row.index:
-                rates[cur] = float(last_row[sym])
 
     return rates
 
