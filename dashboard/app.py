@@ -290,6 +290,8 @@ if not holdings:
 symbols = [h["yf_symbol"] for h in holdings]
 quotes = fetch_quotes(symbols)
 fx_rates = fetch_fx_rates({h["currency"] for h in holdings})
+with st.sidebar:
+    st.caption(f"FX → USD: HKD {fx_rates.get('HKD', 1):.4f} · JPY {fx_rates.get('JPY', 1):.4f}")
 
 rows = []
 for h in holdings:
