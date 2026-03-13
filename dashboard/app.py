@@ -310,232 +310,208 @@ def conviction_label(weight: float) -> str:
 
 st.set_page_config(page_title="Portfolio Radar", page_icon="📈", layout="wide")
 enforce_password()
-st.title("Portfolio Radar")
-st.caption("Live view across holdings, watchlist, and opportunity reminders")
 
-alert_threshold = st.sidebar.slider(
-    "Watchlist alert window (% above target)",
-    min_value=0.0,
-    max_value=10.0,
-    value=3.0,
-    step=0.5,
-)
+# ── Sidebar ───────────────────────────────────────────────────────────────────
+with st.sidebar:
+    st.title("📈 Portfolio Radar")
+    alert_threshold = st.slider("Watchlist alert window (%)", 0.0, 10.0, 3.0, 0.5)
+    history_range = st.radio("Chart range", list(RANGE_CHOICES.keys()), index=2, horizontal=True)
+    st.divider()
 
+# ── Load data ─────────────────────────────────────────────────────────────────
 holdings, cash_balance = load_holdings()
-holdings_signature = tuple((h["ticker"], h["shares"], h["currency"], h["yf_symbol"]) for h in holdings)
-nav_range = st.sidebar.radio("Performance range", list(RANGE_CHOICES.keys()), index=2, horizontal=False)
-nav_series, price_history = build_nav_history(holdings_signature, cash_balance, nav_range)
-
-if not nav_series.empty:
-    st.subheader("Portfolio value history")
-    nav_display = nav_series.tz_convert("Asia/Shanghai").tz_localize(None)
-    st.line_chart(nav_display.rename("Total USD"))
-else:
-    st.info("No historical pricing data available for the selected range.")
-
-if not price_history.empty:
-    st.subheader("Per-asset price history (USD)")
-    price_display = price_history.tz_convert("Asia/Shanghai").tz_localize(None)
-    default_selection = price_display.columns[:4].tolist()
-    selected_assets = st.multiselect("Select tickers", price_display.columns.tolist(), default=default_selection)
-    if selected_assets:
-        st.line_chart(price_display[selected_assets])
-
-
 if not holdings:
     st.warning("No holdings found. Update holdings.csv to populate the dashboard.")
+    st.stop()
 
 symbols = [h["yf_symbol"] for h in holdings]
-quotes = fetch_quotes(symbols)
+quotes   = fetch_quotes(symbols)
 fx_rates = fetch_fx_rates({h["currency"] for h in holdings})
-with st.sidebar:
-    st.caption(f"FX → USD: HKD {fx_rates.get('HKD', 1):.4f} · JPY {fx_rates.get('JPY', 1):.4f}")
 
+with st.sidebar:
+    st.caption(f"HKD→USD {fx_rates.get('HKD', 1):.4f}  ·  JPY→USD {fx_rates.get('JPY', 1):.5f}")
+
+# ── Build positions ───────────────────────────────────────────────────────────
 rows = []
 for h in holdings:
-    symbol = h["yf_symbol"]
-    quote = quotes.get(symbol)
+    quote = quotes.get(h["yf_symbol"])
     if not quote:
         continue
-
     price_local = quote["price"]
-    prev_local = quote["prev_close"]
-    currency = h["currency"]
-    fx = fx_rates.get(currency, 1.0)
-    price_usd = price_local * fx
-    value_usd = price_usd * h["shares"]
-    daily_change = ((price_local / prev_local) - 1.0) * 100 if prev_local else 0.0
-
-    rows.append(
-        {
-            "Name": h["name"],
-            "Ticker": h["ticker"],
-            "Market": h["market"],
-            "Shares": h["shares"],
-            "Price (local)": price_local,
-            "Currency": currency,
-            "USD Value": value_usd,
-            "Daily %": daily_change,
-            "Conviction": None,
-            "Ticker Symbol": symbol,
-        }
-    )
+    prev_local  = quote["prev_close"]
+    fx          = fx_rates.get(h["currency"], 1.0)
+    value_usd   = price_local * fx * h["shares"]
+    daily_pct   = ((price_local / prev_local) - 1.0) * 100 if prev_local else 0.0
+    rows.append({
+        "Name": h["name"], "Ticker": h["ticker"], "Market": h["market"],
+        "Shares": h["shares"], "Price (local)": price_local,
+        "Currency": h["currency"], "USD Value": value_usd,
+        "Daily %": daily_pct, "Ticker Symbol": h["yf_symbol"],
+    })
 
 positions_df = pd.DataFrame(rows)
 if positions_df.empty:
-    st.error("Live pricing feed failed (yfinance returned no data). Give it a minute and hit rerun.")
+    st.error("Live pricing unavailable — please hit Rerun in a moment.")
     st.stop()
 
-total_equity_value = positions_df["USD Value"].sum()
-total_nav = total_equity_value + cash_balance
-positions_df["Weight %"] = positions_df["USD Value"] / total_nav * 100 if total_nav else 0
+total_invested = positions_df["USD Value"].sum()
+total_nav      = total_invested + cash_balance
+positions_df["Weight %"]  = positions_df["USD Value"] / total_nav * 100
 positions_df["Conviction"] = positions_df["Weight %"].apply(lambda w: conviction_label(w / 100))
 
-col1, col2, col3 = st.columns(3)
-col1.metric("Total NAV (USD)", f"${total_nav:,.0f}")
-col2.metric("Invested Capital", f"${total_equity_value:,.0f}")
-col3.metric("Cash Buffer", f"${cash_balance:,.0f}", help="Dry powder available for redeployment")
+# ── Header metrics ────────────────────────────────────────────────────────────
+m1, m2, m3, m4 = st.columns(4)
+m1.metric("💰 Total NAV", f"${total_nav:,.0f}")
+m2.metric("📊 Invested",  f"${total_invested:,.0f}")
+m3.metric("🏦 Cash",      f"${cash_balance:,.0f}")
+# portfolio daily change
+port_daily = sum(
+    r["Daily %"] * r["USD Value"] for _, r in positions_df.iterrows()
+) / total_invested if total_invested else 0
+m4.metric("📅 Today", f"{port_daily:+.2f}%",
+          delta_color="normal" if port_daily >= 0 else "inverse")
 
+st.divider()
+
+# ── Performance chart ─────────────────────────────────────────────────────────
+st.subheader("Total portfolio value")
+holdings_sig = tuple((h["ticker"], h["shares"], h["currency"], h["yf_symbol"]) for h in holdings)
+nav_series, _ = build_nav_history(holdings_sig, cash_balance, history_range)
+if not nav_series.empty:
+    try:
+        nav_display = nav_series.tz_convert("Asia/Shanghai").tz_localize(None)
+    except Exception:
+        nav_display = nav_series
+    # Plotly chart for better styling
+    import plotly.graph_objects as go
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=nav_display.index, y=nav_display.values,
+        mode="lines", name="NAV",
+        line=dict(color="#00d4a4", width=2),
+        fill="tozeroy", fillcolor="rgba(0,212,164,0.08)"
+    ))
+    start_val = nav_display.iloc[0]
+    end_val   = nav_display.iloc[-1]
+    chg_pct   = (end_val / start_val - 1) * 100 if start_val else 0
+    colour    = "#00d4a4" if chg_pct >= 0 else "#ff4b4b"
+    fig.update_layout(
+        height=260, margin=dict(l=0, r=0, t=8, b=0),
+        xaxis=dict(showgrid=False), yaxis=dict(showgrid=True, gridcolor="#222"),
+        plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
+        showlegend=False,
+        annotations=[dict(
+            x=0.01, y=0.95, xref="paper", yref="paper",
+            text=f"<b style='color:{colour}'>{chg_pct:+.2f}%</b> over {history_range}",
+            showarrow=False, font=dict(size=13)
+        )]
+    )
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    st.info("Chart data unavailable for this range — try a longer window.")
+
+st.divider()
+
+# ── Positions table ───────────────────────────────────────────────────────────
 st.subheader("Positions")
-st.dataframe(
-    positions_df[
-        [
-            "Name",
-            "Ticker",
-            "Market",
-            "Shares",
-            "Price (local)",
-            "Currency",
-            "USD Value",
-            "Weight %",
-            "Daily %",
-            "Conviction",
-        ]
-    ].sort_values("USD Value", ascending=False),
-    use_container_width=True,
-    hide_index=True,
+display_df = (
+    positions_df[["Name","Ticker","Market","Shares","Price (local)","Currency",
+                  "USD Value","Weight %","Daily %","Conviction"]]
+    .sort_values("USD Value", ascending=False)
+    .copy()
+)
+display_df["Daily %"]  = display_df["Daily %"].map(lambda x: f"{x:+.2f}%")
+display_df["Weight %"] = display_df["Weight %"].map(lambda x: f"{x:.1f}%")
+display_df["USD Value"] = display_df["USD Value"].map(lambda x: f"${x:,.0f}")
+st.dataframe(display_df, use_container_width=True, hide_index=True)
+
+# ── Allocation charts ─────────────────────────────────────────────────────────
+class_map = {"US":"US Equities","HK":"HK Equities","JP":"Japan Equities","Crypto":"Crypto"}
+positions_df["Asset Class"] = positions_df["Market"].map(class_map).fillna(positions_df["Market"])
+alloc_df = positions_df.groupby("Asset Class")["USD Value"].sum().reset_index()
+
+c1, c2 = st.columns(2)
+with c1:
+    fig = px.pie(alloc_df, values="USD Value", names="Asset Class", hole=0.45,
+                 title="Allocation by asset class")
+    fig.update_layout(margin=dict(l=0,r=0,t=40,b=0), showlegend=True,
+                      plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
+    st.plotly_chart(fig, use_container_width=True)
+with c2:
+    top8 = positions_df.nlargest(8, "USD Value")
+    fig = px.bar(top8, x="Name", y="USD Value", color="Conviction",
+                 title="Top positions",
+                 text=top8["Weight %"].map(lambda w: f"{w:.1f}%"),
+                 color_discrete_map={"High Conviction":"#00d4a4","Core":"#4da6ff","Satellite":"#ffbb44"})
+    fig.update_traces(textposition="outside")
+    fig.update_layout(margin=dict(l=0,r=0,t=40,b=0),
+                      plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
+    st.plotly_chart(fig, use_container_width=True)
+
+weights = positions_df["Weight %"] / 100
+hhi = float((weights ** 2).sum())
+st.caption(
+    f"Concentration (HHI): **{hhi:.3f}** — "
+    + ("🔴 Highly concentrated" if hhi > 0.25 else "🟡 Balanced" if hhi > 0.15 else "🟢 Well diversified")
 )
 
-if not positions_df.empty:
-    class_map = {
-        "US": "US Equities",
-        "HK": "HK Equities",
-        "JP": "Japan Equities",
-        "Crypto": "Crypto",
-    }
-    positions_df["Asset Class"] = positions_df["Market"].map(class_map).fillna(positions_df["Market"])
+st.divider()
 
-    alloc_by_class = (
-        positions_df.groupby("Asset Class")["USD Value"].sum().reset_index()
-    )
-    chart_col1, chart_col2 = st.columns(2)
-    with chart_col1:
-        st.markdown("**Allocation by asset class**")
-        fig = px.pie(alloc_by_class, values="USD Value", names="Asset Class", hole=0.4)
-        st.plotly_chart(fig, use_container_width=True)
-    with chart_col2:
-        st.markdown("**Top positions by USD weight**")
-        top_df = positions_df.nlargest(8, "USD Value")
-        fig = px.bar(
-            top_df,
-            x="Name",
-            y="USD Value",
-            color="Conviction",
-            text=top_df["Weight %"].map(lambda w: f"{w:.1f}%"),
-        )
-        fig.update_traces(textposition="outside")
-        st.plotly_chart(fig, use_container_width=True)
-
-    weights = positions_df["Weight %"] / 100
-    hhi = float((weights ** 2).sum())
-    st.markdown(
-        f"**Concentration score (HHI):** {hhi:.3f} — "
-        + ("Highly concentrated" if hhi > 0.25 else "Balanced core/satellite" if hhi > 0.15 else "Well diversified")
-    )
-
-    history_range = st.sidebar.radio("History range", list(RANGE_CHOICES.keys()), index=2)
-    holdings_signature = tuple((h["ticker"], h["shares"], h["currency"], h["yf_symbol"]) for h in holdings)
-    nav_series, price_df = build_nav_history(holdings_signature, cash_balance, history_range)
-    if not nav_series.empty:
-        st.subheader("Total asset value")
-        st.line_chart(nav_series.tz_convert("Asia/Shanghai").tz_localize(None))
-    if not price_df.empty:
-        st.subheader("Price history (USD)")
-        available = price_df.columns.tolist()
-        default_selection = available[: min(4, len(available))]
-        selected = st.multiselect("Select tickers", available, default=default_selection)
-        if selected:
-            st.line_chart(price_df[selected].tz_convert("Asia/Shanghai").tz_localize(None))
-
+# ── Watchlist ─────────────────────────────────────────────────────────────────
 watchlist_df = load_watchlist()
 if not watchlist_df.empty:
-    st.subheader("Watchlist & Opportunity Reminders")
-    watch_symbols = []
-    for raw in watchlist_df["Ticker"].tolist():
-        if "-" in raw or "." in raw:
-            watch_symbols.append(raw)
-        else:
-            watch_symbols.append(to_yfinance_symbol("US", raw))
-
+    st.subheader("🎯 Watchlist & Opportunity Reminders")
+    watch_symbols = [
+        raw if ("-" in raw or "." in raw) else to_yfinance_symbol("US", raw)
+        for raw in watchlist_df["Ticker"].tolist()
+    ]
     watch_quotes = fetch_quotes(watch_symbols)
     alert_rows = []
-
     for _, row in watchlist_df.iterrows():
-        ticker = row["Ticker"]
-        name = row.get("Name", ticker)
+        t = row["Ticker"]
+        sym = t if ("-" in t or "." in t) else to_yfinance_symbol("US", t)
+        q = watch_quotes.get(sym)
+        price = q["price"] if q else None
         target = row.get("Desired Entry USD")
-        if "-" in ticker or "." in ticker:
-            yf_symbol = ticker
-        else:
-            yf_symbol = to_yfinance_symbol("US", ticker)
-        quote = watch_quotes.get(yf_symbol)
-        price = quote["price"] if quote else None
-
-        delta = None
-        within_band = False
-        if price and target and target > 0:
-            delta = (price - target) / target * 100
-            within_band = delta <= alert_threshold
-
-        alert_rows.append(
-            {
-                "Ticker": ticker,
-                "Name": name,
-                "Price": price,
-                "Target": target,
-                "Δ vs target %": delta,
-                "Notes": row.get("Notes", ""),
-                "Ready": within_band,
-            }
-        )
-
+        delta = (price - target) / target * 100 if (price and target and target > 0) else None
+        within = delta is not None and delta <= alert_threshold
+        alert_rows.append({"Ticker": t, "Name": row.get("Name", t),
+                           "Price": f"${price:,.2f}" if price else "—",
+                           "Target": f"${target:,.2f}" if target else "—",
+                           "Δ vs target": f"{delta:+.1f}%" if delta is not None else "—",
+                           "Notes": row.get("Notes", ""), "🔔": "✅" if within else ""})
     alert_df = pd.DataFrame(alert_rows)
     st.dataframe(alert_df, use_container_width=True, hide_index=True)
+    ready = [r for r in alert_rows if r["🔔"] == "✅"]
+    if ready:
+        st.success("  |  ".join(f"{r['Ticker']} within entry band" for r in ready))
 
-    ready = alert_df[alert_df["Ready"] == True]
-    if not ready.empty:
-        lines = []
-        for row in ready.to_dict("records"):
-            delta = row.get("Δ vs target %")
-            if delta is None:
-                continue
-            direction = "above" if delta >= 0 else "below"
-            lines.append(f"{row['Ticker']} is {abs(delta):.2f}% {direction} target (within alert window).")
-        if lines:
-            st.success("\n".join(lines))
+st.divider()
 
-if not positions_df.empty:
-    st.subheader("Fresh headlines (top holdings)")
-    top_symbols = positions_df.sort_values("USD Value", ascending=False)["Ticker Symbol"].head(3).tolist()
-    news_items = fetch_news(top_symbols, max_items=6)
-    if news_items:
-        for item in news_items:
-            publisher = f" — {item['publisher']}" if item.get("publisher") else ""
-            age = f" ({item['age']})" if item.get("age") else ""
-            st.markdown(f"- **[{item['title']}]({item['link']})**{publisher}{age}")
+# ── Market news ───────────────────────────────────────────────────────────────
+st.subheader("📰 Market News")
+news_tab1, news_tab2 = st.tabs(["Top Holdings", "All Holdings"])
+
+with news_tab1:
+    top_news_symbols = positions_df.sort_values("USD Value", ascending=False)["Ticker Symbol"].head(3).tolist()
+    items = fetch_news(top_news_symbols, max_items=8)
+    if items:
+        for item in items:
+            age = f"  `{item['age']}`" if item.get("age") else ""
+            st.markdown(f"**[{item['title']}]({item['link']})**{age}")
+            st.divider()
     else:
-        st.info("No recent headlines surfaced from Yahoo Finance.")
+        st.info("No headlines found — try refreshing.")
 
-st.caption(
-    "Data via Yahoo! Finance (via yfinance). Refresh interval ~5 minutes."
-)
+with news_tab2:
+    all_news_symbols = positions_df.sort_values("USD Value", ascending=False)["Ticker Symbol"].tolist()
+    items = fetch_news(all_news_symbols, max_items=12)
+    if items:
+        for item in items:
+            age = f"  `{item['age']}`" if item.get("age") else ""
+            st.markdown(f"**[{item['title']}]({item['link']})**{age}")
+            st.divider()
+    else:
+        st.info("No headlines found — try refreshing.")
+
+st.caption("Data: Yahoo Finance. Prices ~5 min delay. FX updated every 15 min.")
