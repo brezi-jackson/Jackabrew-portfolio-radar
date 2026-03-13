@@ -1,0 +1,18 @@
+Market,Ticker,Asset Name,quantity(stock number)
+HK,1211,BYD,"1,000"
+HK,9660,Horizon,"6,000"
+HK,2105,Laekna,"4,500"
+US,ASML,ASML,0
+US,RKLB,Rocket Lab,100
+US,URNM,Sprott Uranium,150
+US,GOOGL,Google,80
+US,NVDA,Nvidia,500
+US,INTC,Intel,380
+JP,6324.T,Harmonic Dr.,300
+Crypto,BTC,Bitcoin,1
+Crypto,ETH,Etherium,5
+Crypto,RENDER,Render,"2,215"
+Crypto,DOGE,Dogecoin,"25,302"
+,,,
+,,,
+Remaining Cash: ,62659USD,,

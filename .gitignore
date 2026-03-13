@@ -1,0 +1,8 @@
+.openclaw/
+agents/
+*.pyc
+__pycache__/
+.venv/
+portfolio_radar.zip
+memory/
+*.log
