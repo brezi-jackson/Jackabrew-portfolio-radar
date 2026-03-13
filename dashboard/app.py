@@ -327,6 +327,10 @@ for h in holdings:
     )
 
 positions_df = pd.DataFrame(rows)
+if positions_df.empty:
+    st.error("Live pricing feed failed (yfinance returned no data). Give it a minute and hit rerun.")
+    st.stop()
+
 total_equity_value = positions_df["USD Value"].sum()
 total_nav = total_equity_value + cash_balance
 positions_df["Weight %"] = positions_df["USD Value"] / total_nav * 100 if total_nav else 0
