@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
+import requests
 import streamlit as st
 import yfinance as yf
 
@@ -182,41 +183,59 @@ def fetch_quotes(symbols):
     if not symbols:
         return quotes
 
-    for symbol in symbols:
+    def chunk(seq, size):
+        for i in range(0, len(seq), size):
+            yield seq[i : i + size]
+
+    for batch in chunk(symbols, 8):
         try:
-            ticker = yf.Ticker(symbol)
+            resp = requests.get(
+                "https://query1.finance.yahoo.com/v7/finance/quote",
+                params={"symbols": ",".join(batch)},
+                timeout=10,
+            )
+            resp.raise_for_status()
+            results = resp.json().get("quoteResponse", {}).get("result", [])
         except Exception:
             continue
 
-        price = None
-        prev = None
-        currency = None
+        lookup = {item.get("symbol"): item for item in results}
+        for sym in batch:
+            item = lookup.get(sym)
+            if not item:
+                continue
+            price = item.get("regularMarketPrice")
+            prev = item.get("regularMarketPreviousClose") or price
+            currency = item.get("currency")
+            if price is None:
+                continue
+            quotes[sym] = {
+                "price": float(price),
+                "prev_close": float(prev if prev is not None else price),
+                "currency": currency,
+            }
 
+    missing = [sym for sym in symbols if sym not in quotes]
+    for sym in missing:
         try:
-            info = ticker.fast_info or {}
-            price = info.get("last_price") or info.get("regular_market_price")
-            prev = info.get("previous_close")
-            currency = info.get("currency")
-        except Exception:
-            info = {}
-
-        if price is None or prev is None:
+            ticker = yf.Ticker(sym)
+            hist = ticker.history(period="5d", interval="1d")
+            if hist.empty:
+                continue
+            price = float(hist["Close"].iloc[-1])
+            prev = float(hist["Close"].iloc[-2]) if len(hist) > 1 else price
+            currency = None
             try:
-                hist = ticker.history(period="5d", interval="1d")
-                if not hist.empty:
-                    price = price or hist["Close"].iloc[-1]
-                    prev = prev or (hist["Close"].iloc[-2] if len(hist) > 1 else hist["Close"].iloc[-1])
+                currency = ticker.fast_info.get("currency")
             except Exception:
                 pass
-
-        if price is None:
+            quotes[sym] = {
+                "price": price,
+                "prev_close": prev,
+                "currency": currency,
+            }
+        except Exception:
             continue
-
-        quotes[symbol] = {
-            "price": float(price),
-            "prev_close": float(prev) if prev else float(price),
-            "currency": currency,
-        }
 
     return quotes
 
