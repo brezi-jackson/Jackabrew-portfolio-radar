@@ -437,11 +437,14 @@ if not watchlist_df.empty:
 
     ready = alert_df[alert_df["Ready"] == True]
     if not ready.empty:
-        st.success(
-            "\n".join(
-                f"{r.Ticker} is {r['Δ vs target %']:.2f}% above target (within alert window)." for r in ready.itertuples()
-            )
-        )
+        lines = []
+        for row in ready.to_dict("records"):
+            delta = row.get("Δ vs target %")
+            if delta is None:
+                continue
+            lines.append(f"{row['Ticker']} is {delta:.2f}% above target (within alert window).")
+        if lines:
+            st.success("\n".join(lines))
 
 if not positions_df.empty:
     st.subheader("Fresh headlines (top holdings)")
