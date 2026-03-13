@@ -445,7 +445,8 @@ if not watchlist_df.empty:
             delta = row.get("Δ vs target %")
             if delta is None:
                 continue
-            lines.append(f"{row['Ticker']} is {delta:.2f}% above target (within alert window).")
+            direction = "above" if delta >= 0 else "below"
+            lines.append(f"{row['Ticker']} is {abs(delta):.2f}% {direction} target (within alert window).")
         if lines:
             st.success("\n".join(lines))
 
