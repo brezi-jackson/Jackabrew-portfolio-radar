@@ -37,6 +37,40 @@ FX_SYMBOLS = {
 }
 
 
+RANGE_CHOICES = {
+    "1D": {"range": "5d", "interval": "30m"},
+    "7D": {"range": "7d", "interval": "90m"},
+    "1M": {"range": "1mo", "interval": "1d"},
+    "1Y": {"range": "1y", "interval": "1wk"},
+}
+
+
+@st.cache_data(ttl=900)
+def fetch_chart_series(symbol: str, span: str = "1mo", interval: str = "1d"):
+    try:
+        resp = requests.get(
+            f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}",
+            params={"range": span, "interval": interval},
+            headers=YF_HEADERS,
+            timeout=10,
+        )
+        resp.raise_for_status()
+        payload = resp.json().get("chart", {}).get("result", [])
+        if not payload:
+            return None, None
+        result = payload[0]
+        timestamps = result.get("timestamp") or []
+        closes = result.get("indicators", {}).get("quote", [{}])[0].get("close", [])
+        if not timestamps or not closes:
+            return None, None
+        idx = pd.to_datetime(timestamps, unit="s", utc=True)
+        series = pd.Series(closes, index=idx).dropna()
+        currency = result.get("meta", {}).get("currency")
+        return series, currency
+    except Exception:
+        return None, None
+
+
 def enforce_password():
     if not APP_PASSWORD:
         return
@@ -136,24 +170,10 @@ def fetch_fx_rates(currencies):
         sym = FX_SYMBOLS.get(cur)
         if not sym:
             continue
-        try:
-            resp = requests.get(
-                f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}",
-                params={"range": "5d", "interval": "1d"},
-                headers=YF_HEADERS,
-                timeout=10,
-            )
-            resp.raise_for_status()
-            payload = resp.json().get("chart", {}).get("result", [])
-            if not payload:
-                continue
-            closes = payload[0].get("indicators", {}).get("quote", [{}])[0].get("close", [])
-            closes = [c for c in closes if c is not None]
-            if not closes:
-                continue
-            rates[cur] = float(closes[-1])
-        except Exception:
+        series, _ = fetch_chart_series(sym, span="1mo", interval="1d")
+        if series is None or series.empty:
             continue
+        rates[cur] = float(series.dropna().iloc[-1])
     return rates
 
 
@@ -164,33 +184,17 @@ def fetch_quotes(symbols):
         return quotes
 
     for symbol in symbols:
-        try:
-            resp = requests.get(
-                f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}",
-                params={"range": "5d", "interval": "1d"},
-                headers=YF_HEADERS,
-                timeout=10,
-            )
-            resp.raise_for_status()
-            payload = resp.json().get("chart", {}).get("result", [])
-            if not payload:
-                continue
-            result = payload[0]
-            quote_block = result.get("indicators", {}).get("quote", [{}])
-            closes = quote_block[0].get("close", []) if quote_block else []
-            closes = [c for c in closes if c is not None]
-            if not closes:
-                continue
-            price = float(closes[-1])
-            prev = float(closes[-2]) if len(closes) > 1 else price
-            currency = result.get("meta", {}).get("currency")
-            quotes[symbol] = {
-                "price": price,
-                "prev_close": prev,
-                "currency": currency,
-            }
-        except Exception:
+        series, currency = fetch_chart_series(symbol, span="5d", interval="1d")
+        if series is None or series.empty:
             continue
+        series = series.dropna()
+        price = float(series.iloc[-1])
+        prev = float(series.iloc[-2]) if len(series) > 1 else price
+        quotes[symbol] = {
+            "price": price,
+            "prev_close": prev,
+            "currency": currency,
+        }
 
     return quotes
 
@@ -205,7 +209,60 @@ def load_watchlist(path: Path = WATCHLIST_PATH):
 
 
 @st.cache_data(ttl=900)
+def build_nav_history(holdings_signature, cash_balance, range_key):
+    settings = RANGE_CHOICES.get(range_key, RANGE_CHOICES["1M"])
+    price_series = {}
+    position_series = {}
+    fx_cache = {}
+
+    for signature in holdings_signature:
+        ticker, shares, currency, yf_symbol = signature
+        series, meta_currency = fetch_chart_series(yf_symbol, span=settings["range"], interval=settings["interval"])
+        if series is None or series.empty:
+            continue
+        usd_series = series.dropna()
+        local_currency = meta_currency or currency
+        if local_currency != "USD":
+            fx_symbol = FX_SYMBOLS.get(local_currency)
+            if fx_symbol:
+                fx_series = fx_cache.get((fx_symbol, range_key))
+                if fx_series is None:
+                    fx_series, _ = fetch_chart_series(fx_symbol, span=settings["range"], interval=settings["interval"])
+                    if fx_series is not None:
+                        fx_series = fx_series.dropna()
+                        fx_cache[(fx_symbol, range_key)] = fx_series
+                if fx_series is not None and not fx_series.empty:
+                    fx_aligned = fx_series.reindex(usd_series.index, method="ffill")
+                    usd_series = (usd_series * fx_aligned).dropna()
+        price_series[ticker] = usd_series
+        position_series[ticker] = (usd_series * shares).dropna()
+
+    if not position_series:
+        return pd.Series(dtype=float), pd.DataFrame()
+
+    value_df = pd.concat(position_series, axis=1).fillna(method="ffill")
+    nav_series = value_df.sum(axis=1) + cash_balance
+
+    if range_key == "1D":
+        nav_series = nav_series.last("1D")
+        price_series = {k: v.last("1D") for k, v in price_series.items()}
+    elif range_key == "7D":
+        nav_series = nav_series.last("7D")
+        price_series = {k: v.last("7D") for k, v in price_series.items()}
+    elif range_key == "1M":
+        nav_series = nav_series.last("31D")
+        price_series = {k: v.last("31D") for k, v in price_series.items()}
+    elif range_key == "1Y":
+        nav_series = nav_series.last("366D")
+        price_series = {k: v.last("366D") for k, v in price_series.items()}
+
+    price_df = pd.concat(price_series, axis=1).fillna(method="ffill")
+    return nav_series, price_df
+
+
+@st.cache_data(ttl=900)
 def fetch_news(symbols, max_items=8):
+
     items = []
     seen_titles = set()
     for symbol in symbols:
@@ -261,6 +318,26 @@ alert_threshold = st.sidebar.slider(
 )
 
 holdings, cash_balance = load_holdings()
+holdings_signature = tuple((h["ticker"], h["shares"], h["currency"], h["yf_symbol"]) for h in holdings)
+nav_range = st.sidebar.radio("Performance range", list(RANGE_CHOICES.keys()), index=2, horizontal=False)
+nav_series, price_history = build_nav_history(holdings_signature, cash_balance, nav_range)
+
+if not nav_series.empty:
+    st.subheader("Portfolio value history")
+    nav_display = nav_series.tz_convert("Asia/Shanghai").tz_localize(None)
+    st.line_chart(nav_display.rename("Total USD"))
+else:
+    st.info("No historical pricing data available for the selected range.")
+
+if not price_history.empty:
+    st.subheader("Per-asset price history (USD)")
+    price_display = price_history.tz_convert("Asia/Shanghai").tz_localize(None)
+    default_selection = price_display.columns[:4].tolist()
+    selected_assets = st.multiselect("Select tickers", price_display.columns.tolist(), default=default_selection)
+    if selected_assets:
+        st.line_chart(price_display[selected_assets])
+
+
 if not holdings:
     st.warning("No holdings found. Update holdings.csv to populate the dashboard.")
 
@@ -371,6 +448,20 @@ if not positions_df.empty:
         f"**Concentration score (HHI):** {hhi:.3f} — "
         + ("Highly concentrated" if hhi > 0.25 else "Balanced core/satellite" if hhi > 0.15 else "Well diversified")
     )
+
+    history_range = st.sidebar.radio("History range", list(RANGE_CHOICES.keys()), index=2)
+    holdings_signature = tuple((h["ticker"], h["shares"], h["currency"], h["yf_symbol"]) for h in holdings)
+    nav_series, price_df = build_nav_history(holdings_signature, cash_balance, history_range)
+    if not nav_series.empty:
+        st.subheader("Total asset value")
+        st.line_chart(nav_series.tz_convert("Asia/Shanghai").tz_localize(None))
+    if not price_df.empty:
+        st.subheader("Price history (USD)")
+        available = price_df.columns.tolist()
+        default_selection = available[: min(4, len(available))]
+        selected = st.multiselect("Select tickers", available, default=default_selection)
+        if selected:
+            st.line_chart(price_df[selected].tz_convert("Asia/Shanghai").tz_localize(None))
 
 watchlist_df = load_watchlist()
 if not watchlist_df.empty:
