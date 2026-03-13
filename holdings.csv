@@ -2,7 +2,7 @@ Market,Ticker,Asset Name,quantity(stock number)
 HK,1211,BYD,1000.0
 HK,9660,Horizon,6000.0
 HK,2105,Laekna,4500.0
-US,ASML,ASML,1098.5
+HK,2692,兆威機電,500.0
 US,RKLB,Rocket Lab,100.0
 US,URNM,Sprott Uranium,150.0
 US,GOOGL,Google,80.0
@@ -13,7 +13,6 @@ Crypto,BTC,Bitcoin,0.57
 Crypto,ETH,Etherium,5.29
 Crypto,RENDER,Render,2215.0
 Crypto,DOGE,Dogecoin,25302.0
-HK,2692,JD Logistics,500.0
 
 ,,
 Remaining Cash: ,62659.0USD,,
