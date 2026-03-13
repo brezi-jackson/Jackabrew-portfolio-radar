@@ -10,8 +10,8 @@ WATCHLIST_CSV = REPO_ROOT / 'watchlist.csv'
 WEBHOOK = os.environ.get('DISCORD_WEBHOOK')
 
 if not WEBHOOK:
-    print('DISCORD_WEBHOOK not set; exiting')
-    raise SystemExit(0)
+    print('ERROR: DISCORD_WEBHOOK secret not set. Add it in repo Settings → Secrets & variables → Actions.')
+    raise SystemExit(1)
 
 def fetch_price(sym):
     try:
