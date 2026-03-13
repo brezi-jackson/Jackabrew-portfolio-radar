@@ -262,35 +262,39 @@ def build_nav_history(holdings_signature, cash_balance, range_key):
 
 @st.cache_data(ttl=900)
 def fetch_news(symbols, max_items=8):
+    import xml.etree.ElementTree as ET
+    from email.utils import parsedate_to_datetime
 
     items = []
     seen_titles = set()
     for symbol in symbols:
         try:
-            news_feed = yf.Ticker(symbol).news or []
+            resp = requests.get(
+                f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={symbol}&region=US&lang=en-US",
+                headers=YF_HEADERS,
+                timeout=10,
+            )
+            resp.raise_for_status()
+            root = ET.fromstring(resp.content)
+            entries = root.findall(".//item")
         except Exception:
-            news_feed = []
-        for story in news_feed:
-            title = story.get("title")
-            link = story.get("link")
+            entries = []
+        for entry in entries:
+            title = (entry.findtext("title") or "").strip()
+            link = (entry.findtext("link") or "").strip()
             if not title or not link or title in seen_titles:
                 continue
             seen_titles.add(title)
-            ts = story.get("providerPublishTime")
-            if ts:
-                published = datetime.fromtimestamp(ts, tz=timezone.utc)
-                age_hours = (datetime.now(timezone.utc) - published).total_seconds() / 3600
-                age_str = f"{age_hours:.0f}h ago" if age_hours < 48 else published.strftime("%b %d")
-            else:
-                age_str = ""
-            items.append(
-                {
-                    "title": title,
-                    "link": link,
-                    "publisher": story.get("publisher", ""),
-                    "age": age_str,
-                }
-            )
+            pub_text = entry.findtext("pubDate") or ""
+            age_str = ""
+            if pub_text:
+                try:
+                    published = parsedate_to_datetime(pub_text)
+                    age_hours = (datetime.now(timezone.utc) - published).total_seconds() / 3600
+                    age_str = f"{age_hours:.0f}h ago" if age_hours < 48 else published.strftime("%b %d")
+                except Exception:
+                    pass
+            items.append({"title": title, "link": link, "publisher": "Yahoo Finance", "age": age_str})
             if len(items) >= max_items:
                 return items
     return items
