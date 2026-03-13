@@ -10,6 +10,8 @@ import requests
 import streamlit as st
 import yfinance as yf
 
+YF_HEADERS = {"User-Agent": "Mozilla/5.0"}
+
 BASE_CURRENCY = "USD"
 APP_PASSWORD = os.environ.get("APP_PASSWORD") or st.secrets.get("APP_PASSWORD", "")
 HOLDINGS_PATH = Path(__file__).resolve().parent.parent / "holdings.csv"
@@ -128,55 +130,30 @@ def to_yfinance_symbol(market: str, ticker: str) -> str:
 @st.cache_data(ttl=900)
 def fetch_fx_rates(currencies):
     rates = {BASE_CURRENCY: 1.0, "USD": 1.0}
-    symbol_map = {}
     for cur in currencies:
-        if cur and cur not in rates:
-            sym = FX_SYMBOLS.get(cur)
-            if sym:
-                symbol_map[sym] = cur
-    symbols = list(symbol_map.keys())
-    if not symbols:
-        return rates
-
-    try:
-        data = yf.download(symbols, period="5d", interval="1d", progress=False)
-    except Exception:
-        return rates
-
-    if isinstance(data, pd.DataFrame):
-        if data.empty:
-            return rates
-        subset = data
-        if isinstance(data.columns, pd.MultiIndex):
-            level0 = data.columns.get_level_values(0)
-            if "Adj Close" in level0:
-                subset = data.xs("Adj Close", level=0, axis=1)
-            elif "Close" in level0:
-                subset = data.xs("Close", level=0, axis=1)
-        elif "Adj Close" in data.columns:
-            subset = data["Adj Close"]
-        elif "Close" in data.columns:
-            subset = data["Close"]
+        if not cur or cur in rates:
+            continue
+        sym = FX_SYMBOLS.get(cur)
+        if not sym:
+            continue
         try:
-            last_row = subset.iloc[-1]
-        except IndexError:
-            return rates
-        if isinstance(last_row, pd.Series):
-            for sym, cur in symbol_map.items():
-                if sym in last_row.index:
-                    rates[cur] = float(last_row[sym])
-        else:
-            sym = symbols[0]
-            cur = symbol_map.get(sym)
-            if cur:
-                rates[cur] = float(last_row)
-    elif isinstance(data, pd.Series):
-        if data.empty:
-            return rates
-        for sym, cur in symbol_map.items():
-            if sym in data.index:
-                rates[cur] = float(data[sym])
-
+            resp = requests.get(
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}",
+                params={"range": "5d", "interval": "1d"},
+                headers=YF_HEADERS,
+                timeout=10,
+            )
+            resp.raise_for_status()
+            payload = resp.json().get("chart", {}).get("result", [])
+            if not payload:
+                continue
+            closes = payload[0].get("indicators", {}).get("quote", [{}])[0].get("close", [])
+            closes = [c for c in closes if c is not None]
+            if not closes:
+                continue
+            rates[cur] = float(closes[-1])
+        except Exception:
+            continue
     return rates
 
 
@@ -191,7 +168,7 @@ def fetch_quotes(symbols):
             resp = requests.get(
                 f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}",
                 params={"range": "5d", "interval": "1d"},
-                headers={"User-Agent": "Mozilla/5.0"},
+                headers=YF_HEADERS,
                 timeout=10,
             )
             resp.raise_for_status()
