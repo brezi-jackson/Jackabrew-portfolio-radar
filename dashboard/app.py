@@ -182,12 +182,10 @@ def fetch_quotes(symbols):
     if not symbols:
         return quotes
 
-    ticker_str = " ".join(symbols)
-    tickers = yf.Tickers(ticker_str)
-
     for symbol in symbols:
-        ticker = tickers.tickers.get(symbol)
-        if ticker is None:
+        try:
+            ticker = yf.Ticker(symbol)
+        except Exception:
             continue
 
         price = None
@@ -195,7 +193,7 @@ def fetch_quotes(symbols):
         currency = None
 
         try:
-            info = ticker.fast_info
+            info = ticker.fast_info or {}
             price = info.get("last_price") or info.get("regular_market_price")
             prev = info.get("previous_close")
             currency = info.get("currency")
