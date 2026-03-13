@@ -183,54 +183,28 @@ def fetch_quotes(symbols):
     if not symbols:
         return quotes
 
-    def chunk(seq, size):
-        for i in range(0, len(seq), size):
-            yield seq[i : i + size]
-
-    for batch in chunk(symbols, 8):
+    for symbol in symbols:
         try:
             resp = requests.get(
-                "https://query1.finance.yahoo.com/v7/finance/quote",
-                params={"symbols": ",".join(batch)},
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}",
+                params={"range": "5d", "interval": "1d"},
                 headers={"User-Agent": "Mozilla/5.0"},
                 timeout=10,
             )
             resp.raise_for_status()
-            results = resp.json().get("quoteResponse", {}).get("result", [])
-        except Exception:
-            continue
-
-        lookup = {item.get("symbol"): item for item in results}
-        for sym in batch:
-            item = lookup.get(sym)
-            if not item:
+            payload = resp.json().get("chart", {}).get("result", [])
+            if not payload:
                 continue
-            price = item.get("regularMarketPrice")
-            prev = item.get("regularMarketPreviousClose") or price
-            currency = item.get("currency")
-            if price is None:
+            result = payload[0]
+            quote_block = result.get("indicators", {}).get("quote", [{}])
+            closes = quote_block[0].get("close", []) if quote_block else []
+            closes = [c for c in closes if c is not None]
+            if not closes:
                 continue
-            quotes[sym] = {
-                "price": float(price),
-                "prev_close": float(prev if prev is not None else price),
-                "currency": currency,
-            }
-
-    missing = [sym for sym in symbols if sym not in quotes]
-    for sym in missing:
-        try:
-            ticker = yf.Ticker(sym)
-            hist = ticker.history(period="5d", interval="1d")
-            if hist.empty:
-                continue
-            price = float(hist["Close"].iloc[-1])
-            prev = float(hist["Close"].iloc[-2]) if len(hist) > 1 else price
-            currency = None
-            try:
-                currency = ticker.fast_info.get("currency")
-            except Exception:
-                pass
-            quotes[sym] = {
+            price = float(closes[-1])
+            prev = float(closes[-2]) if len(closes) > 1 else price
+            currency = result.get("meta", {}).get("currency")
+            quotes[symbol] = {
                 "price": price,
                 "prev_close": prev,
                 "currency": currency,
