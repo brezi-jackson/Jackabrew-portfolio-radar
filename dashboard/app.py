@@ -148,12 +148,15 @@ def fetch_fx_rates(currencies):
             return rates
         subset = data
         if isinstance(data.columns, pd.MultiIndex):
-            try:
-                subset = data["Adj Close"]
-            except KeyError:
-                subset = data
+            level0 = data.columns.get_level_values(0)
+            if "Adj Close" in level0:
+                subset = data.xs("Adj Close", level=0, axis=1)
+            elif "Close" in level0:
+                subset = data.xs("Close", level=0, axis=1)
         elif "Adj Close" in data.columns:
             subset = data["Adj Close"]
+        elif "Close" in data.columns:
+            subset = data["Close"]
         try:
             last_row = subset.iloc[-1]
         except IndexError:
