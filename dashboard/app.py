@@ -192,6 +192,7 @@ def fetch_quotes(symbols):
             resp = requests.get(
                 "https://query1.finance.yahoo.com/v7/finance/quote",
                 params={"symbols": ",".join(batch)},
+                headers={"User-Agent": "Mozilla/5.0"},
                 timeout=10,
             )
             resp.raise_for_status()
