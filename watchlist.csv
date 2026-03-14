@@ -1,3 +1,6 @@
-Ticker,Name,Desired Entry USD,Notes
-SMCI,Supermicro,850,"Add if it rerates after earnings"
-TSM,TSMC,120,"Starter when US fab subsidy headlines clear"
+Ticker,Name,Market,Desired Entry USD,Conviction,Rationale
+TSM,TSMC,US,130,High,"Irreplaceable AI chip foundry. NVIDIA/AMD/Apple all depend on TSMC for cutting-edge nodes. Arizona fab expansion reduces geopolitical discount. Core position when pullbacks to entry."
+AMAT,Applied Materials,US,130,High,"Semiconductor equipment leader. Every new fab — TSMC, Samsung, Intel — buys AMAT tools. Direct leveraged bet on AI capex cycle without single-chip risk."
+PLTR,Palantir,US,18,Medium,"AIP (AI Platform) is the real growth engine — Fortune 500 plugging data into LLM orchestration. Contrarian culture attracts top talent. Founder-led. Patient hold."
+MU,Micron,US,75,Medium,"HBM (High Bandwidth Memory) is inside every AI GPU. Micron closing the gap on SK Hynix in HBM3E. When HBM ramp hits full stride, earnings surprise violently to upside. 40-year company, cyclical but structurally re-rated by AI."
+SMCI,Super Micro Computer,US,35,Low,"Speculative recovery. Best AI server assembler by speed-to-market. Accounting overhang lifting slowly. Small position only — governance risk real. Binary: clean audit = re-rate, new issue = pain."
