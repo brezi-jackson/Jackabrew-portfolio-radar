@@ -8,6 +8,7 @@ US,URNM,Sprott Uranium,150.0
 US,GOOGL,Google,80.0
 US,NVDA,Nvidia,500.0
 US,INTC,Intel,380.0
+US,SMCI,Super Micro Computer,160.0
 JP,6324.T,Harmonic Dr.,300.0
 Crypto,BTC,Bitcoin,0.57
 Crypto,ETH,Etherium,5.29
@@ -15,4 +16,4 @@ Crypto,RENDER,Render,2215.0
 Crypto,DOGE,Dogecoin,25302.0
 
 ,,
-Remaining Cash: ,62659.0USD,,
+Remaining Cash: ,57587.0USD,,
