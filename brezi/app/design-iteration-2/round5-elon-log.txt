@@ -1,0 +1,9 @@
+Done. Written to `brezi/app/design-iteration-2/round5-elon.md`.
+
+Key calls:
+
+- **5 of 7 extensions approved**, Pattern Vocabulary deferred to v2 (competes with maturation, premature trigger, one-shot dead end)
+- **3 copy fixes** identified: "done its job" → "That's all it needed to be" (Tide Pool afternoon), "sweet spot" therapy voice killed, "Here's the data" → "Here's what that looks like"
+- **3 must-fixes for Round 6**: the copy fixes, Jensen confirming template resolution is display-time not storage-time, and defining the maturation increment trigger (recommend: increment on Why Today *display*, not skip or app-open)
+- **Revised build order**: 3 days post-R4, not 4
+- Bridge line and maturation system called out as the two best additions since "Not yet" in Round 4

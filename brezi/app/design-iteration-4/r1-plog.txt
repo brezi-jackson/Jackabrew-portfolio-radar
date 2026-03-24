@@ -1,0 +1,27 @@
+Done. Complete spec written to `brezi/app/design-iteration-4/round1-picasso.md`.
+
+What's in there — all 12 required items:
+
+1. **Every Home screen state** — Pre-brew (recovery + why today + brew card), Brewing (full-screen timer, tab bar hidden), Post-brew (caffeine countdown + check-in), Evening (cleared message + no-brew variant)
+
+2. **Brew Card** — Profile name in amber, tagline, dose [−] 60g [+] with live strength label, caffeine readout updating live (dose × 2.0), brew window progress bar with NOW marker, START BREW button, collapsed Advanced toggle for grind/temp/ratio
+
+3. **Caffeine Countdown Timer** — 4 states (counting to peak → at peak → clearing → cleared), decay bar with remaining mg, brew summary line, dismissible X, auto-fade after sleep-safe
+
+4. **Check-In Card** — "How did today's brew land?" with 3 pills (Right / Needed more / Too much), Skip link, appears 30 min post-brew, auto-dismisses after rating
+
+5. **Bottom Tab Bar** — macOS Dock pill indicator, `#488BED` pill slides with spring animation, 4 tabs with SF Symbol icons + labels, `#0F0F0F` background
+
+6. **Beans Tab** — Full warm cream world: "For You Today" horizontal scroll matching active profile, 2-column "Browse All" grid, bean detail with flavor sliders, origin story, tasting note pills, Add to Cart / NOTIFY ME / Subscribe & Save
+
+7. **History Tab** — Brew log entries with profile/dose/caffeine/recovery/check-in, pattern cards after 5+ brews, per-bean history after 3+ brews
+
+8. **Settings** — Wearable connect (WHOOP/Oura), wake time picker, caffeine cutoff goal, check-in toggle
+
+9. **Onboarding** — 4 screens exactly: Hook → Why → Data Ask (wearable connect) → First Recovery Input → "Reading your signal..." → Home. 2 taps to first brew.
+
+10. **All exact copy strings** — 85+ strings indexed by key, paste-ready for `Localizable.strings`
+
+11. **All component specs** — Sizes, spacing, typography, colors, corner radii for every element down to pixel level
+
+12. **All animations** — Dose tap spring feedback, timer ring fill, caffeine card fade-in, tab pill slide, onboarding stagger, card dismiss, recovery dot fill, brew window marker, advanced toggle

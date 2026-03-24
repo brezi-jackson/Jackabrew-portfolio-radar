@@ -1,0 +1,11 @@
+Done. Written to `brezi/app/design-iteration-4/round2-elon.md`.
+
+**Verdict:** Almost ship-ready. Three fixes:
+
+1. **Brief still says `brew_start + 25h`** — must match the spec's `brew_end + 15h`. Source-of-truth conflict between the locked brief and the spec will cause a build-time regression.
+
+2. **Brief says "➖ Too light" but spec says "➖ Too much"** — these mean opposite things. If a dev builds from the brief, check-in data semantics are inverted and every pattern generated from that data is wrong.
+
+3. **Manual recovery input doesn't specify daily reset** — if the slider persists yesterday's value, users will autopilot past it and every downstream calculation (profile, dose, Why Today) runs on stale data. Needs an explicit "reset to no selection each morning" requirement.
+
+All Round 1 fixes landed correctly. Picasso's insight-line-instead-of-lowered-threshold approach is actually better than what I asked for — accepted. Boundary glow and projected sleep-safe on "BREW ANYWAY" are both clean additions. After these three document/behavioral fixes, this is ready for engineering.

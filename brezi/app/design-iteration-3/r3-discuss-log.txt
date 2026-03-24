@@ -1,0 +1,10 @@
+Written to `round3-discussion.md`. Here's the summary:
+
+**Accepted (2 of 3):**
+- "SUBSCRIBE ON ANY BEAN" copy tension — agree to monitor in TestFlight, no spec change now. The energy of the CTA outweighs the technical contradiction at launch.
+- General profile card illustration — agree it's a gap. Flagged as asset pipeline deliverable for the illustrator, ships before public launch, silhouette placeholder is fine for TestFlight.
+
+**Pushed back (1 of 3):**
+- Bean name truncation on Screen 5 — the roaster name stays. It's the brand thesis: Brezi is a platform, not a private label. The math checks out (31 chars in Mono 13px = 232pt, iPhone SE has 288pt usable). If truncation ever hits, drop the subtitle first, never the roaster name.
+
+**Bottom line:** Nothing changes. There is no Round 4. The spec is locked, the 9-day build order holds, Jensen starts Phase 1.

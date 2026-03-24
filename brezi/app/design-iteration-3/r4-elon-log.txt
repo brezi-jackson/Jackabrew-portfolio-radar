@@ -1,0 +1,9 @@
+Written to `brezi/app/design-iteration-3/round4-elon.md`.
+
+**Summary:** The locked brief and the Round 3 spec are aligned — 14/14 requirements match. No structural redesign needed.
+
+**Top 3 fixes:**
+
+1. **Gate the "Use general settings" shortcut** — hide it until the user has completed the full flow 3+ times so new users always experience the palette transition brand moment
+2. **Resolve Corvus "Medium-Light" vs ".medium"** — the brief says Medium-Light, the enum only has `.medium`. Jackson's call whether the text label matters (the slider position at 0.45 is visually correct either way)
+3. **Confirm Stitch/Corvus pricing timeline** — Subscribe & Save is fully designed, but if only Regent has pricing at launch, the marketplace has one buyable bean. Not a design gap — a business dependency

@@ -1,0 +1,19 @@
+Written to `brezi/app/design-iteration-3/round2-elon.md`.
+
+**Summary of the critique:**
+
+Picasso delivered on all three Round 1 non-negotiables — Why Today exists and is the best screen in the app, Corvus data is corrected, history card is complete. The app crossed the line from fitness-app-with-coffee to coffee-brand-with-health-engine.
+
+**Scores by question:**
+1. **Palette transition** — Nailed. Typewriter + crossfade + CTA delay is the right pacing.
+2. **Bean cards** — Strong. Three distinct visual signatures from one component.
+3. **Why Today** — Landing. Copy register is correct. "Pick your weapon" is brand voice.
+4. **Flavor visualization** — Under 3 seconds. Gradients are intuitive.
+5. **History card** — Personal and warm. "It holds up" is the best insight line.
+6. **Marketplace** — Functional but 66% of beans have no price at launch.
+7. **Overall** — Coffee brand that happens to be smart. Why Today is the inflection point.
+
+**Top 3 fixes for next round:**
+1. Move adaptation note above brew parameters on Screen 4 — lead with why, not what
+2. Add contextual banner when all visible beans are price-TBD — frame it as exclusivity, not absence
+3. Make typewriter timing configurable, not hardcoded — future-proof the hero brand moment

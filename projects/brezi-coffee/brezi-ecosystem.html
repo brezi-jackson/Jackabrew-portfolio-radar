@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brezi Ecosystem</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0A0A0A;
+    color: #F5F5F5;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 32px;
+  }
+
+  .title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #2BBDBA;
+    margin-bottom: 8px;
+  }
+
+  .headline {
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: #F5F5F5;
+    margin-bottom: 4px;
+  }
+
+  .sub {
+    font-size: 13px;
+    color: #8C8C8C;
+    margin-bottom: 56px;
+    font-weight: 400;
+  }
+
+  .ecosystem {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  /* ── LAYER ROWS ── */
+  .layer {
+    display: flex;
+    align-items: stretch;
+    gap: 3px;
+  }
+
+  .layer-label {
+    width: 120px;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 16px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #555;
+    font-weight: 500;
+  }
+
+  .layer-content {
+    flex: 1;
+    display: flex;
+    gap: 3px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    flex: 1;
+    border-radius: 6px;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+  }
+
+  .card-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .card-desc {
+    font-size: 11px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 100px;
+    font-weight: 600;
+    margin-top: auto;
+    padding-top: 8px;
+    background: transparent;
+  }
+
+  /* ── LAYER COLORS ── */
+
+  /* Layer 0: Sources */
+  .source-card {
+    background: #141414;
+    border: 1px solid #222;
+  }
+  .source-card .card-title { color: #8C8C8C; }
+  .source-card .card-tag { color: #444; }
+
+  /* Layer 1: Intelligence */
+  .intel-card {
+    background: linear-gradient(135deg, #0d2e2e 0%, #0a1f1f 100%);
+    border: 1px solid #1A8A88;
+  }
+  .intel-card .card-title { color: #2BBDBA; }
+  .intel-card .card-tag { color: #1A8A88; }
+
+  .intel-card-primary {
+    background: linear-gradient(135deg, #1A8A88 0%, #2BBDBA 100%);
+    border: none;
+    flex: 2;
+  }
+  .intel-card-primary .card-title { color: #000; font-size: 15px; }
+  .intel-card-primary .card-desc { color: rgba(0,0,0,0.6); }
+  .intel-card-primary .card-tag { color: rgba(0,0,0,0.5); }
+
+  /* Layer 2: Hardware */
+  .hw-card {
+    background: #111;
+    border: 1px solid #2a2a2a;
+  }
+  .hw-card .card-title { color: #F5F5F5; }
+  .hw-card-primary {
+    background: #1a1a1a;
+    border: 1px solid #2BBDBA44;
+  }
+  .hw-card-primary .card-title { color: #2BBDBA; }
+
+  /* Layer 3: Experience */
+  .exp-card {
+    background: #0e0e0e;
+    border: 1px solid #1e1e1e;
+  }
+  .exp-card .card-title { color: #F0EBE1; }
+
+  /* Layer 4: Supply */
+  .supply-card {
+    background: #0d0d0d;
+    border: 1px solid #1a1a1a;
+  }
+  .supply-card .card-title { color: #8C8C8C; }
+
+  /* ── CONNECTOR ── */
+  .connector {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin-left: 120px;
+    gap: 3px;
+  }
+
+  .conn-line {
+    flex: 1;
+    height: 28px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .conn-line::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #2BBDBA44, transparent);
+  }
+
+  .conn-arrow {
+    font-size: 9px;
+    color: #2BBDBA66;
+    z-index: 1;
+  }
+
+  .conn-label {
+    flex: 2;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2BBDBA66;
+    font-weight: 500;
+  }
+
+  /* ── FLOW CONNECTOR ── */
+  .flow-row {
+    display: flex;
+    align-items: center;
+    margin-left: 120px;
+    gap: 3px;
+    padding: 4px 0;
+  }
+
+  .flow-pill {
+    flex: 1;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2BBDBA88;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .flow-pill::before, .flow-pill::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #2BBDBA33);
+  }
+
+  .flow-pill::after {
+    background: linear-gradient(to left, transparent, #2BBDBA33);
+  }
+
+  /* ── FOOTER ── */
+  .footer-row {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    gap: 16px;
+    padding-left: 123px;
+  }
+
+  .footer-card {
+    flex: 1;
+    background: #0e1e1e;
+    border: 1px solid #1A8A8833;
+    border-radius: 6px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer-card-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #2BBDBA;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-card-desc {
+    font-size: 10px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 100px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  .badge-now { background: #2BBDBA22; color: #2BBDBA; }
+  .badge-6mo { background: #1A8A8822; color: #1A8A88; }
+  .badge-12mo { background: #2a2a2a; color: #666; }
+  .badge-18mo { background: #1a1a1a; color: #444; }
+
+</style>
+</head>
+<body>
+
+<div class="title">Waking Intelligence</div>
+<div class="headline">The Brezi Ecosystem</div>
+<div class="sub">Biological execution infrastructure for the morning</div>
+
+<div class="ecosystem">
+
+  <!-- LAYER 0: DATA SOURCES -->
+  <div class="layer">
+    <div class="layer-label">Data In</div>
+    <div class="layer-content">
+      <div class="card source-card">
+        <div class="card-icon">⌚</div>
+        <div class="card-title">Apple Health</div>
+        <div class="card-desc">HRV, sleep stages, RHR via HealthKit. Phase 1.</div>
+        <div class="card-tag badge badge-now">Now</div>
+      </div>
+      <div class="card source-card">
+        <div class="card-icon">💍</div>
+        <div class="card-title">Oura Ring</div>
+        <div class="card-desc">Recovery score, readiness index, temperature. OAuth2.</div>
+        <div class="card-tag badge badge-6mo">Mo 6</div>
+      </div>
+      <div class="card source-card">
+        <div class="card-icon">🩺</div>
+        <div class="card-title">WHOOP</div>
+        <div class="card-desc">Strain, recovery, sleep performance. API partner.</div>
+        <div class="card-tag badge badge-12mo">Mo 12</div>
+      </div>
+      <div class="card source-card">
+        <div class="card-icon">🔷</div>
+        <div class="card-title">Ultrahuman</div>
+        <div class="card-desc">Metabolic & biometric data. APAC-first.</div>
+        <div class="card-tag badge badge-18mo">Mo 18</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-pill">Overnight biometric state vector</div>
+  </div>
+
+  <!-- LAYER 1: INTELLIGENCE -->
+  <div class="layer">
+    <div class="layer-label">Intelligence</div>
+    <div class="layer-content">
+      <div class="card intel-card-primary">
+        <div class="card-icon">🧠</div>
+        <div class="card-title">Brezi Intelligence</div>
+        <div class="card-desc">Pre-computes overnight. Rules engine + LLM inference. Protocol selected before your alarm sounds. Morning brief generated. Cache delivered to device.</div>
+        <div class="card-tag">While you slept, it decided.</div>
+      </div>
+      <div class="card intel-card" style="flex:1">
+        <div class="card-icon">📊</div>
+        <div class="card-title">Protocol Lock</div>
+        <div class="card-desc">90-day milestone. Identifies your correlated stack-to-recovery patterns. Chronic experimenter becomes Protocol Delegator.</div>
+      </div>
+      <div class="card intel-card" style="flex:1">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">Data Flywheel</div>
+        <div class="card-desc">Brew triplet: biometric state × protocol × 2h outcome. Personalization improves over time. Non-transferable moat.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-pill">BLE command → device preparation begins</div>
+  </div>
+
+  <!-- LAYER 2: HARDWARE -->
+  <div class="layer">
+    <div class="layer-label">Hardware</div>
+    <div class="layer-content">
+      <div class="card hw-card-primary">
+        <div class="card-icon">❄️</div>
+        <div class="card-title">Brezi Wake</div>
+        <div class="card-desc">Cold extraction brewer. 12-min protocol. Peltier cooling, 60-LED ring, NFC cartridge auth. ASP $388–399. The beachhead SKU.</div>
+        <div class="card-tag badge badge-now">Core Product</div>
+      </div>
+      <div class="card hw-card">
+        <div class="card-icon">🌿</div>
+        <div class="card-title">Brezi Adapt</div>
+        <div class="card-desc">Cold botanical extractor. Ashwagandha, lion's mane, reishi. Preserves heat-sensitive compounds. Attaches to Brezi Wake.</div>
+        <div class="card-tag badge badge-6mo">Gen 1.5</div>
+      </div>
+      <div class="card hw-card">
+        <div class="card-icon">💊</div>
+        <div class="card-title">Brezi Restore</div>
+        <div class="card-desc">Precision supplement mixer. NFC pods. Magnesium, L-theanine, creatine. Pre-sleep & recovery protocols.</div>
+        <div class="card-tag badge badge-12mo">Gen 2</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-pill">Protocol ready → "Your morning is ready."</div>
+  </div>
+
+  <!-- LAYER 3: EXPERIENCE -->
+  <div class="layer">
+    <div class="layer-label">Experience</div>
+    <div class="layer-content">
+      <div class="card exp-card">
+        <div class="card-icon">📱</div>
+        <div class="card-title">Morning Brief</div>
+        <div class="card-desc">"HRV low, sleep 74%. Reduced caffeine, added reishi. Protocol: Tide Pool." 2-3 sentences. Execution with receipts.</div>
+      </div>
+      <div class="card exp-card">
+        <div class="card-icon">🔔</div>
+        <div class="card-title">One Notification</div>
+        <div class="card-desc">"Your morning is ready." — 3 words, every morning. No streaks. No leaderboards. No nag. The knowing device stays quiet.</div>
+      </div>
+      <div class="card exp-card">
+        <div class="card-icon">🚫</div>
+        <div class="card-title">Not Today</div>
+        <div class="card-desc">One-tap override. No survey, no explanation asked. System adjusts silently. Next morning is different. No shame.</div>
+      </div>
+      <div class="card exp-card">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">Protocol Lock</div>
+        <div class="card-desc">"Here's what's actually working. Lock this in?" Day 90 milestone. Turns experimenter into delegator. Core retention event.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-pill">NFC Protocol Packs — consumable subscription</div>
+  </div>
+
+  <!-- LAYER 4: SUPPLY -->
+  <div class="layer">
+    <div class="layer-label">Supply</div>
+    <div class="layer-content">
+      <div class="card supply-card">
+        <div class="card-icon">📦</div>
+        <div class="card-title">Protocol Packs</div>
+        <div class="card-desc">Voltage / First Light / Tide Pool. NFC-authenticated. $25/mo subscription. 40% attach target.</div>
+        <div class="card-tag badge badge-now">Now</div>
+      </div>
+      <div class="card supply-card">
+        <div class="card-icon">🌱</div>
+        <div class="card-title">Botanical Pods</div>
+        <div class="card-desc">Adapt-series: lion's mane, ashwagandha, reishi, cordyceps. Certified, third-party tested. Cold-optimised formulations.</div>
+        <div class="card-tag badge badge-6mo">Mo 6</div>
+      </div>
+      <div class="card supply-card">
+        <div class="card-icon">🏪</div>
+        <div class="card-title">Brezi Supply</div>
+        <div class="card-desc">Third-party formulation brands distribute through biometric-triggered delivery layer. Marketplace opens at scale. $4.2B SAM long-term.</div>
+        <div class="card-tag badge badge-18mo">Year 3+</div>
+      </div>
+      <div class="card supply-card">
+        <div class="card-icon">🏢</div>
+        <div class="card-title">B2B / Institutional</div>
+        <div class="card-desc">Elite sports, longevity clinics, corporate wellness. Validates infrastructure framing. Not the primary business — the moat builder.</div>
+        <div class="card-tag badge badge-12mo">Mo 12+</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- STRATEGIC PILLARS -->
+<div class="footer-row">
+  <div class="footer-card">
+    <div class="footer-card-title">The Irreducible Core</div>
+    <div class="footer-card-desc">Build the execution gap closed — hardware first, biology-anchored, no willpower required in the middle. Never let the product drift toward advice.</div>
+  </div>
+  <div class="footer-card">
+    <div class="footer-card-title">The Moat</div>
+    <div class="footer-card-desc">Closed loop: biometric state × brew params × 2h outcomes. Longitudinal individual data that personalises to you over time. Cannot be open-sourced.</div>
+  </div>
+  <div class="footer-card">
+    <div class="footer-card-title">The Category</div>
+    <div class="footer-card-desc">Waking Intelligence — automated translation of biological state into physical intervention. In hardware. Before you wake. Nobody else is doing this.</div>
+  </div>
+  <div class="footer-card">
+    <div class="footer-card-title">The Warning</div>
+    <div class="footer-card-desc">Brezi fails silently when "automated" becomes "assisted" and "execution" becomes "guidance." Don't build a wellness app with a nice machine attached.</div>
+  </div>
+</div>
+
+</body>
+</html>

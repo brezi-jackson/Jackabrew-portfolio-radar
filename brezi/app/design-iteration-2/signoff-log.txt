@@ -1,0 +1,13 @@
+Done. Written to `brezi/app/design-iteration-2/final-signoff.md`.
+
+Five sections covering everything Jensen needs:
+
+1. **Overall verdict:** Build it. Architecture survived five rounds unchanged. Six R5 extensions approved, Pattern Vocabulary deferred to v2.
+
+2. **Micro-fixes:** Three copy corrections (afternoon Tide Pool, pattern intro/detail for v2 templates), plus behavioral details — maturation increments on display not open, veteran templates resolved at render time, permanent suppression code path completion, return reset ordering.
+
+3. **Core Data:** `BrewLog` gets five emotional fields, `BeanProfile` entity with 11 seed records, complete UserDefaults registry (R4 + R5 keys), and a clear line between what stays in UserDefaults v1 vs. what migrates to Core Data in v2.
+
+4. **Verbatim copy:** Every string that defines Brezi's voice — tier words, anchor need text, the bridge, the relationship line, surprise lines, return moments, The Blank's identity. These survived four rounds of audit. Ship them exactly.
+
+5. **Priority:** Phase 1 (days 1-5) is the core loop — Why Today, Card 3, beans, flavor, check-in, feedback, rotation. Phase 2 (days 6-8) is temporal extensions. Cut list ordered from least to most critical if scope pressure hits.

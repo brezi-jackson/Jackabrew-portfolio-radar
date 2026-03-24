@@ -1,0 +1,17 @@
+Written to `/brezi/app/design-iteration-3/round3-picasso.md` — 2,805 lines.
+
+**Round 3 integrates all 13 changes from Picasso's response to Elon's critique:**
+
+1. **Adaptation note → hinge position** inside the parameter card (between 3-box summary and detail table) with warm `#F5F0E8` chip — Elon's principle honored, execution improved
+2. **Price TBD banner** — "These beans are on deck" when all filtered results are unpriced
+3. **Toast with bean name** — "We'll let you know when Dark Field drops."
+4. **Subscribe qualifier** — "Available on select beans."
+5. **WhyTodayConfig struct** — all animation timing tunable without code changes
+6. **bag icon** replaces cart (no in-app cart exists)
+7. **Subscribed state** — "SUBSCRIBED ✓" disabled button + UserDefaults flag
+8. **Lead tasting note accent** now explicitly rendered in all wireframes with `*` markers
+9. **First Light copy** — "Nothing to prove." moved to direction line where it hits harder
+10. **Gradient banding quality gate** for LCD displays
+11. **Localizable.strings** added to Phase 1 build order
+
+All 20 sections complete. All screens spec'd. All copy exact. Build order holds at 9 days.

@@ -1,0 +1,9 @@
+Done. Written to `round2-discussion.md`.
+
+**Summary of decisions:**
+
+- **Fix 1 (brief `brew_start + 25h`)** — Accepted. Brief-only update.
+- **Fix 2 (brief "Too light" → "Too much")** — Accepted. Brief-only update. Called it a potential health bug, not just a copy bug.
+- **Fix 3 (manual recovery persistence)** — Accepted Elon's diagnosis, tightened the spec beyond his recommendation: calendar-day reset, slider hidden until chip tap, disabled START BREW with gate copy, same-day read-only return with "Update" link. Three new UserDefaults keys.
+
+Everything else from Round 2 is locked. Round 3 scope is minimal — two brief corrections, one behavioral addition. No structural or copy changes.

@@ -1,0 +1,13 @@
+Written to `brezi/app/design-iteration-2/round3-elon.md`.
+
+**Summary of the review:**
+
+Picasso executed all 17 rewrites from my Round 2 audit. The Blank has a voice now. The sensory extremes lead with positive sensation. The copy is 97%+ correct. The architecture ships as-is.
+
+**3 must-fix things for Round 4:**
+
+1. **"Surprising" should not map to 5 stars** — it inflates quality scores for novel beans. Map to 4, or treat it as a separate signal that doesn't convert to stars at all.
+
+2. **Suppress Why Today after three consecutive skips** — it's a six-second gate before the brew button. Users who skip three days straight don't want it. Suppress for 7 days, then 30, then permanently. Two UserDefaults keys.
+
+3. **"We'll rotate the origin" is a promise the app can't keep in v1** — no rotation logic is spec'd. Either build a simple sort-order swap (bean with 2+ "Flat" ratings drops to position 3) or soften the copy to "Noted — we're tracking what lands."

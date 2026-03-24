@@ -1,0 +1,39 @@
+Done. Here's what I built:
+
+## Emotional Coffee Layer — Complete Implementation
+
+### New Files Created (10)
+
+**Models:**
+- `BeanData.swift` — 11-bean database with all copy dictionaries (bridge lines, flavor framing, pairing rationale, brew taglines, cup feelings, sensory descriptions, temporal arc copy, profile gradients)
+- `EmotionalCopyEngine.swift` — WhyToday maturation (new/familiar/veteran), return moments, surprise lines, smart suppression, feedback acknowledgments, deferred rating, bean rotation logic, veteran copy resolution
+
+**Views:**
+- `WhyTodayView.swift` — Full-screen transitional overlay with phased animation (tier word + haptic → data line → need text → bridge), auto-advance, skip/complete
+- `WhyThisBrewView.swift` — 4-node reasoning chain (signal → profile → bean → parameters) with sequential node animation. The Blank stays at 3 nodes.
+
+**Components:**
+- `EmotionalBrewCardView.swift` — Card 3 with gradient strip, emotional tagline, "THIS CUP IS:" feeling strip, brew params, start/details actions
+- `EmotionalRatingView.swift` — 6-option grid (Hit right / Needed more / Too much / Surprising / Flat / Not yet) replacing star rating
+- `BeanCardView.swift` — Bean cards with character tag, state-bean bridge line (first card only), flavor feeling, sensory cue
+- `FlavorPreviewView.swift` — Sensory descriptions with state-aware framing lines prepended
+- `OriginStorySheet.swift` — Half-sheet with origin story, metadata, tasting notes, "Your Yirgacheffe" relationship line at 5+ brews
+
+### Modified Files (7)
+- **Core Data model** — Added `BeanProfileEntity` (18 attributes), added `emotionalRating`/`beanName`/`recoveryTier` to `BrewLogEntity`
+- **PersistenceController.swift** — Seeds 11 beans on init
+- **AppState.swift** — Emotional state management, bean selection with rotation, `submitEmotionalRating()`, WhyToday eligibility, return detection, feedback acknowledgments
+- **DashboardView.swift** — Integrated WhyToday overlay, EmotionalBrewCardView, bean section, origin story sheets, emotional rating on post-brew card
+- **BrewCompletionOverlay.swift** — Replaced star rating with 6-option EmotionalRatingView
+- **BrewRecommendationView.swift** — Added WhyThisBrewView, FlavorPreviewView, bean cards, origin story sheets
+- **PostBrewCardView.swift** — Temporal arc (recent/afternoon/evening phases), emotional rating display, crossfade transitions
+
+### Key Decisions Per Elon's Notes
+- Pattern Vocabulary **cut** from v1 (per Elon's explicit instruction)
+- Afternoon Tide Pool copy uses the corrected string: "That's all it needed to be."
+- Maturation increments only on **display**, not on skip
+- Veteran templates resolve at **render time**, never cached
+- `checkReturnReset()` runs **before** `shouldShowWhyToday()` on app launch
+- "Not yet" notification uses actual profile name per Elon's fix
+- Bean card left border uses the **active profile's** gradient start color
+- Post-reintroduction permanent suppression path is complete (3 chances → permanent kill)

@@ -1,0 +1,13 @@
+Done. Written to `brezi/app/design-iteration-3/round5-elon.md`.
+
+**Summary of the critique:**
+
+Reviewed all 7 of Picasso's Round 5 extensions against Jackson's locked brief. All 7 serve the brief's intent. Key call: **split them into two build phases.**
+
+- **v1 (ship at launch):** Extensions 1 (bridge lines), 3 (Why Today maturation), 6 (full-day emotional arc), 7 (return moments) — all copy-layer changes to existing components, ~1.5 days added to Jensen's build
+- **v1.1 (first post-launch update):** Extensions 2 (four-node chain), 4 (flavor framing), 5 (pattern vocabulary) — new UI elements that need user history to fire, ~2.5 days
+
+**Top 3 fixes:**
+1. Bridge lines should borrow each roaster's emotional tag vocabulary instead of using generic origin descriptors
+2. Split extensions into v1/v1.1 build phases (above)
+3. Veteran copy dynamic references (`{lastPeakDay}`, etc.) need unit tests for nil data edge cases — showing a template variable to a user would be trust-destroying

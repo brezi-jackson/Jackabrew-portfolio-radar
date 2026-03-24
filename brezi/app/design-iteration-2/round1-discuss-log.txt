@@ -1,0 +1,16 @@
+Written to `round1-discussion.md`.
+
+**Changing:**
+- Killing therapy voice — all three "meet it where it is" instances, all preemptive reassurance, all psychology-interpreting lines. Text-message test applied to everything.
+- Separating jobs — Why Today owns the state, Card 3 taglines rewritten brew-forward (about the coffee's response, not the body's condition)
+- Bean tags rewritten coffee-character-forward — "For when you need ease" → "The quietest bean in the lineup"
+- "Working." → "Steady." for mid tier
+- Front-loading sensation in sensory copy
+- Happy path feedback, surprise moment, flagged copy fixes — all taken
+
+**Defending:**
+- The disappearance line for Tide Pool ("finish without realizing") — absence IS the design intent for a recovery profile. Tightening it, but keeping the concept.
+- Sensory description length — detail screen is opt-in. Reordering, not cutting.
+- Six-second Why Today — fix is in the opening line, not the clock.
+
+**Pushing:** Haptic on the Why Today tier word. Single `UIImpactFeedbackGenerator(style: .soft)` when "Rebuilding." appears. Three lines of code. Makes the emotional layer literally felt.

@@ -1,0 +1,13 @@
+Round 2 spec written to `brezi/app/design-iteration-4/round2-picasso.md`.
+
+All 7 changes integrated inline (marked with **⟐ R2** for easy searching):
+
+1. **Sleep-safe: `brew_end + 15h`** — ~12.5% caffeine remaining, won't contradict WHOOP data
+2. **Long-press dose acceleration** — hold > 0.5s, 5g/0.2s, no more 10-tap adjustments
+3. **Boundary glow** — red flash at 30g min, blue flash at 120g max
+4. **History insight line** — "📊 3 brews logged. Patterns emerging." at 3-4 check-ins
+5. **Pattern teaser toast** — "Noted. A few more and I'll start seeing patterns." one-time after 3rd check-in
+6. **BREW ANYWAY shows sleep-safe** — "Past your window. Sleep-safe by 6:42 AM. Still your call."
+7. **Killed stale `brew_start + 25h`** — single source of truth for sleep-safe calculation
+
+Everything else from Round 1 carried forward unchanged. Complete spec — all 12 required sections, every copy string, every component spec, every animation timing.

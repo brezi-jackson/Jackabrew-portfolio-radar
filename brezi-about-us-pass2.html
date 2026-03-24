@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Brezi Coffee</title>
+  <style>
+    /* ─── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ─── Typography ─────────────────────────────────────── */
+    @font-face {
+      font-family: 'ABC Social Condensed';
+      src: local('ABC Social Condensed'), local('ABCSocialCondensed');
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: 'ABC Social';
+      src: local('ABC Social'), local('ABCSocial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'ABC Social Mono';
+      src: local('ABC Social Mono'), local('ABCSocialMono');
+      font-weight: 400;
+    }
+
+    /* ─── Tokens ─────────────────────────────────────────── */
+    :root {
+      --black:   #000000;
+      --white:   #FFFFFF;
+      --off:     #F5F5F5;
+      --blue:    #488BED;
+      --mid:     #888888;
+      --font-head: 'ABC Social Condensed', 'Arial Narrow', Arial, sans-serif;
+      --font-body: 'ABC Social', Arial, sans-serif;
+      --font-mono: 'ABC Social Mono', 'Courier New', monospace;
+    }
+
+    /* ─── Base ───────────────────────────────────────────── */
+    .abu-page {
+      font-family: var(--font-body);
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Shared Utilities ───────────────────────────────── */
+    .abu-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      display: block;
+      margin-bottom: 20px;
+    }
+    .abu-eyebrow--light { color: rgba(255,255,255,0.45); }
+    .abu-eyebrow--blue  { color: var(--blue); }
+
+    .abu-hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+    }
+    .abu-hr--dark { border-color: rgba(255,255,255,0.12); }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* 1. HERO                                                 */
+    /* ─────────────────────────────────────────────────────── */
+    .abu-hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 120px 48px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .abu-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(72,139,237,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .abu-hero__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .abu-hero__eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 28px;
+    }
+    .abu-hero__headline {
+      font-family: var(--font-head);
+      font-size: clamp(52px, 8vw, 108px);
+      font-weight: 700;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      max-width: 820px;
+    }
+    .abu-hero__headline em {
+      font-style: normal;
+      color: var(--blue);
+    }
+    .abu-hero__tagline {
+      margin-top: 40px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em;
+      font-family: var(--font-mono);
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* 2. THE STORY                                            */
+    /* ─────────────────────────────────────────────────────── */
+    .abu-story {
+      background: var(--white);
+      padding: 100px 48px;
+    }
+    .abu-story__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .abu-story__photo {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: #111;
+    }
+    .abu-story__photo img {
+      transition: transform 0.6s ease;
+    }
+    .abu-story__photo:hover img { transform: scale(1.03); }
+    .abu-story__photo-caption {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      background: rgba(0,0,0,0.5);
+      padding: 4px 10px;
+      backdrop-filter: blur(4px);
+    }
+    .abu-story__text {}
+    .abu-story__headline {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 4vw, 54px);
+      font-weight: 700;
+      line-height: 1.0;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .abu-story__body {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .abu-story__closing {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid #e0e0e0;
+      font-family: var(--font-head);
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.25;
+      color: var(--black);
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* 3. BY THE NUMBERS                                       */
+    /* ─────────────────────────────────────────────────────── */
+    .abu-numbers {
+      background: var(--off);
+      padding: 80px 48px;
+    }
+    .abu-numbers__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .abu-numbers__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid #ddd;
+      background: #ddd;
+    }
+    .abu-numbers__stat {
+      background: var(--off);
+      padding: 52px 36px 44px;
+      position: relative;
+    }
+    .abu-numbers__stat + .abu-numbers__stat {
+      border-left: 1px solid #ddd;
+    }
+    .abu-numbers__value {
+      font-family: var(--font-head);
+      font-size: clamp(52px, 5.5vw, 80px);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+    .abu-numbers__value span {
+      color: var(--blue);
+    }
+    .abu-numbers__label {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #555;
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* 4. LOVED BY CHAMPIONS                                   */
+    /* ─────────────────────────────────────────────────────── */
+    .abu-champions {
+      background: #0A0A0A;
+      color: var(--white);
+      padding: 100px 48px;
+    }
+    .abu-champions__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .abu-champions__header {
+      margin-bottom: 60px;
+    }
+    .abu-champions__headline {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 4.5vw, 60px);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.0;
+      max-width: 600px;
+    }
+    .abu-champions__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .abu-champions__card {
+      padding: 32px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .abu-champions__card:nth-child(4n) { border-right: none; }
+    .abu-champions__card:nth-child(5),
+    .abu-champions__card:nth-child(6),
+    .abu-champions__card:nth-child(7),
+    .abu-champions__card:nth-child(8) { border-bottom: none; }
+    .abu-champions__index {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+    .abu-champions__name {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+    .abu-champions__title {
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.45);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+    .abu-champions__year {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--blue);
+      border: 1px solid rgba(72,139,237,0.3);
+      padding: 2px 8px;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* 5. AWARDS                                               */
+    /* ─────────────────────────────────────────────────────── */
+    .abu-awards {
+      background: var(--white);
+      padding: 80px 48px;
+    }
+    .abu-awards__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .abu-awards__top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .abu-awards__headline {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .abu-awards__hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin-bottom: 0;
+    }
+    .abu-awards__strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid #e0e0e0;
+      margin-top: 32px;
+    }
+    .abu-awards__badge {
+      padding: 36px 28px;
+      border-right: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .abu-awards__badge:last-child { border-right: none; }
+    .abu-awards__badge-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .abu-awards__badge-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--white);
+    }
+    .abu-awards__badge-name {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.15;
+      color: var(--black);
+    }
+    .abu-awards__badge-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* 6. THE TEAM                                             */
+    /* ─────────────────────────────────────────────────────── */
+    .abu-team {
+      background: var(--white);
+      padding: 100px 48px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .abu-team__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .abu-team__header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .abu-team__headline {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.0;
+    }
+    .abu-team__sub {
+      font-size: 14px;
+      color: var(--mid);
+      max-width: 260px;
+      text-align: right;
+      line-height: 1.6;
+    }
+    .abu-team__photo {
+      width: 100%;
+      aspect-ratio: 16/7;
+      overflow: hidden;
+      background: #eee;
+      margin-bottom: 40px;
+    }
+    .abu-team__names {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid #e0e0e0;
+    }
+    .abu-team__member {
+      padding: 24px 20px 24px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .abu-team__member-name {
+      font-family: var(--font-head);
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--black);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .abu-team__member-role {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* 7. ON THE ROAD                                          */
+    /* ─────────────────────────────────────────────────────── */
+    .abu-road {
+      background: var(--off);
+      padding: 100px 48px;
+    }
+    .abu-road__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .abu-road__header {
+      margin-bottom: 48px;
+    }
+    .abu-road__headline {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.0;
+    }
+    .abu-road__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .abu-road__card {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: #111;
+    }
+    .abu-road__card img {
+      transition: transform 0.6s ease;
+    }
+    .abu-road__card:hover img { transform: scale(1.04); }
+    .abu-road__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+    }
+    .abu-road__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 20px;
+    }
+    .abu-road__caption-title {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .abu-road__caption-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* 8. SEE YOU THERE                                        */
+    /* ─────────────────────────────────────────────────────── */
+    .abu-seeyou {
+      background: var(--black);
+      color: var(--white);
+      padding: 100px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .abu-seeyou::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 80% at 50% 110%, rgba(72,139,237,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .abu-seeyou__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+    .abu-seeyou__headline {
+      font-family: var(--font-head);
+      font-size: clamp(44px, 6vw, 88px);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+    .abu-seeyou__headline em {
+      font-style: normal;
+      color: var(--blue);
+    }
+    .abu-seeyou__sub {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 52px;
+    }
+    .abu-seeyou__details {
+      display: inline-flex;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .abu-seeyou__detail {
+      padding: 24px 40px;
+      border-right: 1px solid rgba(255,255,255,0.12);
+      text-align: left;
+    }
+    .abu-seeyou__detail:last-child { border-right: none; }
+    .abu-seeyou__detail-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 6px;
+    }
+    .abu-seeyou__detail-value {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .abu-seeyou__tagline {
+      margin-top: 64px;
+      font-family: var(--font-head);
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─────────────────────────────────────────────────────── */
+    /* RESPONSIVE                                              */
+    /* ─────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .abu-hero,
+      .abu-story,
+      .abu-numbers,
+      .abu-champions,
+      .abu-awards,
+      .abu-team,
+      .abu-road,
+      .abu-seeyou { padding-left: 24px; padding-right: 24px; }
+
+      .abu-story__inner { grid-template-columns: 1fr; gap: 40px; }
+      .abu-story__photo { aspect-ratio: 4/3; }
+
+      .abu-numbers__grid { grid-template-columns: repeat(2, 1fr); }
+      .abu-numbers__stat + .abu-numbers__stat { border-left: none; }
+      .abu-numbers__stat:nth-child(odd) { border-right: 1px solid #ddd; }
+      .abu-numbers__stat:nth-child(3),
+      .abu-numbers__stat:nth-child(4) { border-top: 1px solid #ddd; }
+
+      .abu-champions__grid { grid-template-columns: repeat(2, 1fr); }
+      .abu-champions__card:nth-child(2n) { border-right: none; }
+      .abu-champions__card:nth-child(7),
+      .abu-champions__card:nth-child(8) { border-bottom: none; }
+      .abu-champions__card:nth-child(4n) { border-right: 1px solid rgba(255,255,255,0.08); }
+
+      .abu-awards__top { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .abu-awards__strip { grid-template-columns: repeat(2, 1fr); }
+      .abu-awards__badge:nth-child(2) { border-right: none; }
+      .abu-awards__badge:nth-child(1),
+      .abu-awards__badge:nth-child(2) { border-bottom: 1px solid #e0e0e0; }
+
+      .abu-team__header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .abu-team__sub { text-align: left; max-width: 100%; }
+      .abu-team__names { grid-template-columns: repeat(2, 1fr); }
+
+      .abu-road__grid { grid-template-columns: 1fr; }
+      .abu-road__card { aspect-ratio: 4/3; }
+
+      .abu-seeyou__details { flex-direction: column; width: 100%; }
+      .abu-seeyou__detail { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); }
+      .abu-seeyou__detail:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 480px) {
+      .abu-numbers__grid { grid-template-columns: 1fr; }
+      .abu-numbers__stat:nth-child(odd) { border-right: none; }
+      .abu-numbers__stat:nth-child(3),
+      .abu-numbers__stat:nth-child(4) { border-top: none; }
+      .abu-numbers__stat + .abu-numbers__stat { border-top: 1px solid #ddd; }
+
+      .abu-champions__grid { grid-template-columns: 1fr; }
+      .abu-champions__card { border-right: none !important; }
+      .abu-champions__card:nth-child(8) { border-bottom: none; }
+
+      .abu-awards__strip { grid-template-columns: 1fr; }
+      .abu-awards__badge { border-right: none !important; border-bottom: 1px solid #e0e0e0 !important; }
+      .abu-awards__badge:last-child { border-bottom: none !important; }
+
+      .abu-team__names { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="abu-page">
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 1. HERO                                               -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="abu-hero">
+    <div class="abu-hero__inner">
+      <p class="abu-hero__eyebrow">BORN 2023 · CAUSEWAY BAY, HK</p>
+      <h1 class="abu-hero__headline">Built in<br><em>Hong Kong.</em><br>Brewed for<br>the world.</h1>
+      <p class="abu-hero__tagline">Cold brew, made with care.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 2. THE STORY                                          -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="abu-story">
+    <div class="abu-story__inner">
+      <div class="abu-story__photo">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/20251015161517_345_66.jpg"
+          alt="Jackson at SCAJ Tokyo 2025"
+          loading="lazy"
+        />
+        <span class="abu-story__photo-caption">SCAJ · Tokyo · Oct 2025</span>
+      </div>
+      <div class="abu-story__text">
+        <span class="abu-eyebrow">The Story</span>
+        <h2 class="abu-story__headline">A better way to cold brew.</h2>
+        <p class="abu-story__body">
+          Brezi started as a hobby. A machine for people who take cold brew seriously — without the 24-hour wait.
+        </p>
+        <p class="abu-story__body">
+          We built it in Hong Kong because we couldn't find it anywhere else. We obsessed over the science: extraction pressure, temperature, flow rate. We made it take 10 minutes instead of 24 hours. We made it taste better.
+        </p>
+        <p class="abu-story__body">
+          What began as one engineer's experiment is now trusted by world champions and specialty cafés across the globe.
+        </p>
+        <blockquote class="abu-story__closing">
+          "Brezi started as a hobby. Now it's a ritual we share with you."
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 3. BY THE NUMBERS                                     -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="abu-numbers">
+    <div class="abu-numbers__inner">
+      <span class="abu-eyebrow">By the Numbers</span>
+      <div class="abu-numbers__grid">
+        <div class="abu-numbers__stat">
+          <div class="abu-numbers__value">10<span>min</span></div>
+          <div class="abu-numbers__label">Brew time.<br>Not 24 hours.</div>
+        </div>
+        <div class="abu-numbers__stat">
+          <div class="abu-numbers__value">100<span>+</span></div>
+          <div class="abu-numbers__label">Specialty cafés<br>trust Brezi worldwide</div>
+        </div>
+        <div class="abu-numbers__stat">
+          <div class="abu-numbers__value">8</div>
+          <div class="abu-numbers__label">World & national<br>coffee champions</div>
+        </div>
+        <div class="abu-numbers__stat">
+          <div class="abu-numbers__value">67<span>%</span></div>
+          <div class="abu-numbers__label">Less acidic than<br>hot coffee</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 4. LOVED BY CHAMPIONS                                 -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="abu-champions">
+    <div class="abu-champions__inner">
+      <div class="abu-champions__header">
+        <span class="abu-eyebrow abu-eyebrow--light">Trusted by the World's Best</span>
+        <h2 class="abu-champions__headline">Loved by Champions.</h2>
+      </div>
+      <div class="abu-champions__grid">
+
+        <div class="abu-champions__card">
+          <div class="abu-champions__index">01</div>
+          <div class="abu-champions__name">Georgius Audrey Teja</div>
+          <div class="abu-champions__title">World Coffee In Good Spirits Champion</div>
+          <span class="abu-champions__year">2025</span>
+        </div>
+
+        <div class="abu-champions__card">
+          <div class="abu-champions__index">02</div>
+          <div class="abu-champions__name">Jack Simpson</div>
+          <div class="abu-champions__title">World Barista Champion</div>
+          <span class="abu-champions__year">2025</span>
+        </div>
+
+        <div class="abu-champions__card">
+          <div class="abu-champions__index">03</div>
+          <div class="abu-champions__name">Elysia Tan</div>
+          <div class="abu-champions__title">Singapore Brewers Cup Champion</div>
+          <span class="abu-champions__year">2024</span>
+        </div>
+
+        <div class="abu-champions__card">
+          <div class="abu-champions__index">04</div>
+          <div class="abu-champions__name">Gabriele Pezzaioli</div>
+          <div class="abu-champions__title">Italian Brewers Cup Champion</div>
+          <span class="abu-champions__year">2024</span>
+        </div>
+
+        <div class="abu-champions__card">
+          <div class="abu-champions__index">05</div>
+          <div class="abu-champions__name">Suki Ma</div>
+          <div class="abu-champions__title">Swiss Brewers Cup Champion</div>
+          <span class="abu-champions__year">2024</span>
+        </div>
+
+        <div class="abu-champions__card">
+          <div class="abu-champions__index">06</div>
+          <div class="abu-champions__name">Charity Cheung</div>
+          <div class="abu-champions__title">French Brewers Cup Champion</div>
+          <span class="abu-champions__year">2024</span>
+        </div>
+
+        <div class="abu-champions__card">
+          <div class="abu-champions__index">07</div>
+          <div class="abu-champions__name">Frank La</div>
+          <div class="abu-champions__title">US Barista Champion</div>
+          <span class="abu-champions__year">2024</span>
+        </div>
+
+        <div class="abu-champions__card">
+          <div class="abu-champions__index">08</div>
+          <div class="abu-champions__name">Jane Kawinnart</div>
+          <div class="abu-champions__title">Thailand Barista Champion</div>
+          <span class="abu-champions__year">2023</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 5. AWARDS                                             -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="abu-awards">
+    <div class="abu-awards__inner">
+      <div class="abu-awards__top">
+        <span class="abu-eyebrow" style="margin-bottom:0;">Recognition</span>
+        <h2 class="abu-awards__headline">Award-Winning Design.</h2>
+      </div>
+      <hr class="abu-awards__hr" />
+      <div class="abu-awards__strip">
+
+        <div class="abu-awards__badge">
+          <div class="abu-awards__badge-icon">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 0l2 5h5l-4 3 1.5 5L8 10l-4.5 3L5 8 1 5h5z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="abu-awards__badge-name">iF Design Award</div>
+            <div class="abu-awards__badge-meta">2025</div>
+          </div>
+        </div>
+
+        <div class="abu-awards__badge">
+          <div class="abu-awards__badge-icon">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 0l2 5h5l-4 3 1.5 5L8 10l-4.5 3L5 8 1 5h5z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="abu-awards__badge-name">A' Design Award</div>
+            <div class="abu-awards__badge-meta">Gold · 2025</div>
+          </div>
+        </div>
+
+        <div class="abu-awards__badge">
+          <div class="abu-awards__badge-icon">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 0l2 5h5l-4 3 1.5 5L8 10l-4.5 3L5 8 1 5h5z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="abu-awards__badge-name">IDA Design Awards</div>
+            <div class="abu-awards__badge-meta">Silver · 2024</div>
+          </div>
+        </div>
+
+        <div class="abu-awards__badge">
+          <div class="abu-awards__badge-icon">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 0l2 5h5l-4 3 1.5 5L8 10l-4.5 3L5 8 1 5h5z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="abu-awards__badge-name">SCA Expo Houston</div>
+            <div class="abu-awards__badge-meta">New in Coffee · 2025</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 6. THE TEAM                                           -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="abu-team">
+    <div class="abu-team__inner">
+      <div class="abu-team__header">
+        <div>
+          <span class="abu-eyebrow">The People</span>
+          <h2 class="abu-team__headline">Behind<br>Brezi.</h2>
+        </div>
+        <p class="abu-team__sub">A small, obsessive team building the future of cold brew from Hong Kong.</p>
+      </div>
+      <div class="abu-team__photo">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/2091_2.png"
+          alt="The Brezi Team"
+          loading="lazy"
+        />
+      </div>
+      <div class="abu-team__names">
+        <div class="abu-team__member">
+          <div class="abu-team__member-name">Jackson Leung</div>
+          <div class="abu-team__member-role">Founder & CEO</div>
+        </div>
+        <div class="abu-team__member">
+          <div class="abu-team__member-name">Design Team</div>
+          <div class="abu-team__member-role">Product & Industrial</div>
+        </div>
+        <div class="abu-team__member">
+          <div class="abu-team__member-name">Engineering</div>
+          <div class="abu-team__member-role">Hardware & Firmware</div>
+        </div>
+        <div class="abu-team__member">
+          <div class="abu-team__member-name">Coffee Team</div>
+          <div class="abu-team__member-role">R&D & Partnerships</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 7. ON THE ROAD                                        -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="abu-road">
+    <div class="abu-road__inner">
+      <div class="abu-road__header">
+        <span class="abu-eyebrow">Events & Community</span>
+        <h2 class="abu-road__headline">On the Road.</h2>
+      </div>
+      <div class="abu-road__grid">
+
+        <div class="abu-road__card">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/1752166602778.jpg"
+            alt="SCA Expo Houston 2025"
+            loading="lazy"
+          />
+          <div class="abu-road__overlay"></div>
+          <div class="abu-road__caption">
+            <div class="abu-road__caption-title">SCA Expo<br>Houston</div>
+            <div class="abu-road__caption-sub">April 2025</div>
+          </div>
+        </div>
+
+        <div class="abu-road__card">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/SCAJ_2.jpg"
+            alt="SCAJ Tokyo 2025"
+            loading="lazy"
+          />
+          <div class="abu-road__overlay"></div>
+          <div class="abu-road__caption">
+            <div class="abu-road__caption-title">SCAJ<br>Tokyo</div>
+            <div class="abu-road__caption-sub">October 2025</div>
+          </div>
+        </div>
+
+        <div class="abu-road__card">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/20251130225648_509_66.jpg"
+            alt="CHTF Shenzhen 2025"
+            loading="lazy"
+          />
+          <div class="abu-road__overlay"></div>
+          <div class="abu-road__caption">
+            <div class="abu-road__caption-title">CHTF<br>Shenzhen</div>
+            <div class="abu-road__caption-sub">November 2025</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 8. SEE YOU THERE                                      -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="abu-seeyou">
+    <div class="abu-seeyou__inner">
+      <span class="abu-eyebrow abu-eyebrow--light">What's Next</span>
+      <h2 class="abu-seeyou__headline">See you in<br><em>San Diego.</em></h2>
+      <p class="abu-seeyou__sub">World of Coffee · 2026 · Come say hello</p>
+      <div class="abu-seeyou__details">
+        <div class="abu-seeyou__detail">
+          <div class="abu-seeyou__detail-label">Event</div>
+          <div class="abu-seeyou__detail-value">World of Coffee</div>
+        </div>
+        <div class="abu-seeyou__detail">
+          <div class="abu-seeyou__detail-label">Location</div>
+          <div class="abu-seeyou__detail-value">San Diego, CA</div>
+        </div>
+        <div class="abu-seeyou__detail">
+          <div class="abu-seeyou__detail-label">Year</div>
+          <div class="abu-seeyou__detail-value">2026</div>
+        </div>
+        <div class="abu-seeyou__detail">
+          <div class="abu-seeyou__detail-label">Booth</div>
+          <div class="abu-seeyou__detail-value">#3618</div>
+        </div>
+      </div>
+      <p class="abu-seeyou__tagline">Born in Hong Kong. Engineered for everywhere.</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+Written to `brezi/app/design-iteration-4/round1-elon.md`.
+
+**Verdict: The architecture is right. Three non-negotiable fixes:**
+
+1. **Sleep-safe calculation is wrong** — `brew_end + 10h` leaves 25% caffeine remaining. Should be `brew_end + 15h` (~12.5%). A WHOOP user will see their HRV contradict the app's "sleep-safe" claim the next morning. Trust-killer.
+
+2. **Long-press dose acceleration** — Going from 40g to 90g takes 10 taps. Need hold-to-scrub (0.5s trigger, 5g every 0.2s). Every wellness app with a numerical input supports this.
+
+3. **Pattern card threshold too high** — 5+ check-ins means 7+ days before any personalization signal. Lower to 3. WHOOP and Oura show first insights after 3 days. That's when you earn the home screen.
+
+The big picture: Iteration 4 finally inverts the stack. Recovery is the input variable, coffee is the output variable. That's the correct frame for this audience.

@@ -1,0 +1,15 @@
+Round 3 spec written to `brezi/app/design-iteration-4/round3-picasso.md`. Brief updated with both corrections.
+
+**What Round 3 resolves (4 changes):**
+
+1. **Brief fix:** Caffeine timer formula `brew_start + 25h` → `brew_end + 15h` — kills the source-of-truth conflict
+2. **Brief fix:** Check-in pill "Too light" → "Too much" — fixes the inverted semantics that would corrupt pattern data
+3. **Manual recovery daily reset** — the big behavioral addition:
+   - Calendar day reset (chips and slider clear each morning)
+   - Slider hidden until chip tapped (forces one conscious choice)
+   - START BREW disabled until recovery logged (with gate copy: "Log your recovery to unlock today's brew.")
+   - Same-day return shows read-only with "Update" link (no re-entry friction)
+   - Three new UserDefaults keys: `lastRecoveryInputDate`, `lastRecoveryValue`, `lastRecoveryChip`
+4. **History progressive states clarified** — at 5+ non-skip check-ins, insight line is not rendered; pattern card takes its position directly
+
+Everything else from Round 2 carries forward unchanged. Architecture locked. Copy locked.

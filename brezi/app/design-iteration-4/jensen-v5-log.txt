@@ -1,0 +1,30 @@
+Build complete. Here's the summary:
+
+---
+
+## Iteration 4 Build Complete
+
+**12 new files + 7 modified files.** All old code preserved with legacy stubs.
+
+### Architecture
+- **BreziApp.swift** → routes to `MainTabView` (post-onboarding) or `OnboardingShellView` (first launch)
+- **MainTabView** → Custom 4-tab dock with sliding blue pill (Home / Beans / History / Settings)
+- **HomeView** → State machine driven by `BrewState` enum (idle → brewing → postBrew → cleared)
+
+### New Views (Home Tab)
+| File | Spec Section |
+|---|---|
+| `RecoveryCardView` | Manual chips + slider + daily reset (R3) + wearable mode |
+| `WhyTodayCardView` | Tier-based emotional bridge copy |
+| `BrewRecommendationCard` | THE card — dose control, long-press (R2), boundary glow (R2), caffeine estimate, brew window, START BREW / BREW ANYWAY |
+| `BrewTimerView` | Full-screen timer with progress ring |
+| `CaffeineTimerCard` | 4-state caffeine countdown, brew_end + 15h formula |
+| `CheckInCard` | Right / Needed more / Too much (R3 corrected), pattern teaser toast (R2) |
+
+### Elon's 3 Fixes
+1. **Wearable mapping**: `mapWhoopToRecovery()` / `mapOuraToRecovery()` isolated in AppState
+2. **Immutable brew logs**: Recovery score captured at brew start, never retroactively modified
+3. **Midnight resolution**: `resolveBrewState()` handles day boundaries — yesterday's caffeine doesn't block today's brew
+
+### Summary written to
+`/Users/jackson/.openclaw/workspace/brezi/app/design-iteration-4/jensen-v5-summary.md`

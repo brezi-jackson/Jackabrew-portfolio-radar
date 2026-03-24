@@ -1,0 +1,402 @@
+<!-- bre:zi — About Us — Pass 1 -->
+<style>
+  /* ── Responsive grid overrides ── */
+  .abu-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .abu-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .abu-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0; }
+  .abu-grid-team { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+
+  @media (max-width: 768px) {
+    .abu-grid-2  { grid-template-columns: 1fr; }
+    .abu-grid-3  { grid-template-columns: 1fr; gap: 16px; }
+    .abu-grid-4  { grid-template-columns: 1fr 1fr; }
+    .abu-grid-team { grid-template-columns: 1fr 1fr; }
+    .abu-hero-headline { font-size: clamp(48px, 12vw, 96px) !important; }
+    .abu-story-image { min-height: 300px !important; order: -1; }
+    .abu-story-copy { padding: 48px 24px !important; }
+    .abu-stat-block { border-right: none !important; border-bottom: 1px solid #2A2A2A; }
+    .abu-stat-block:last-child { border-bottom: none; }
+    .abu-stat-block-light { border-right: none !important; border-bottom: 1px solid #E0E0E0; }
+    .abu-stat-block-light:last-child { border-bottom: none; }
+    .abu-section-pad { padding: 64px 24px !important; }
+    .abu-road-caption { font-size: 11px !important; }
+  }
+
+  @media (max-width: 480px) {
+    .abu-grid-4    { grid-template-columns: 1fr; }
+    .abu-grid-team { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<!-- ════════════════════════════════════════════
+     1. HERO
+════════════════════════════════════════════ -->
+<section style="background:#000000; padding: 120px 64px 100px; position:relative; overflow:hidden;">
+
+  <!-- background hero image, low opacity -->
+  <div style="position:absolute; inset:0; background-image:url('https://cdn.shopify.com/s/files/1/0866/2496/0803/files/HomepageHero_2_1080x1350.jpg'); background-size:cover; background-position:center 30%; opacity:0.18;"></div>
+
+  <!-- content -->
+  <div style="position:relative; z-index:1; max-width:960px; margin:0 auto;">
+
+    <!-- eyebrow -->
+    <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:11px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 28px;">
+      About bre:zi
+    </p>
+
+    <!-- headline -->
+    <h1 class="abu-hero-headline" style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:clamp(64px, 8vw, 108px); line-height:1.02; letter-spacing:-0.02em; color:#FFFFFF; margin:0 0 36px; max-width:780px;">
+      Built in Hong Kong.<br>Brewed for precision.
+    </h1>
+
+    <!-- rule -->
+    <div style="width:48px; height:2px; background:#488BED; margin-bottom:32px;"></div>
+
+    <!-- subline -->
+    <p style="font-family:'ABC Social', Arial, sans-serif; font-size:18px; line-height:1.6; color:#BBBBBB; margin:0; max-width:520px;">
+      Cold is a practice. We built the machine to prove it.
+    </p>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     2. THE STORY
+════════════════════════════════════════════ -->
+<section style="background:#FFFFFF;">
+  <div class="abu-grid-2">
+
+    <!-- left: copy -->
+    <div class="abu-story-copy" style="padding: 96px 72px; display:flex; flex-direction:column; justify-content:center;">
+
+      <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:11px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 24px;">
+        The Story
+      </p>
+
+      <h2 style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:clamp(36px, 4vw, 52px); line-height:1.05; letter-spacing:-0.01em; color:#000000; margin:0 0 28px;">
+        We wanted a machine that didn't exist. So we made it.
+      </h2>
+
+      <p style="font-family:'ABC Social', Arial, sans-serif; font-size:16px; line-height:1.7; color:#333333; margin:0 0 20px;">
+        bre:zi was born in Causeway Bay, Hong Kong. Founders Jackson Hung and Graves Ho were serious about cold brew — and frustrated that no machine matched how serious coffee people actually brew. Precise. Fast. No compromise.
+      </p>
+
+      <p style="font-family:'ABC Social', Arial, sans-serif; font-size:16px; line-height:1.7; color:#333333; margin:0;">
+        So they built one. With a team from DJI, Sony, and Tesla, they engineered PrecisionBrew™ — cold brew in ~12 minutes, no ice required, 67% less acidic than hot coffee. Not a hack. A system.
+      </p>
+
+    </div>
+
+    <!-- right: image -->
+    <div class="abu-story-image" style="min-height:560px; overflow:hidden; position:relative;">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/20251015161517_345_66.jpg"
+        alt="Jackson Hung at SCAJ Tokyo 2025"
+        style="width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;"
+      />
+      <div style="position:absolute; bottom:0; left:0; right:0; padding:20px 24px; background:linear-gradient(transparent, rgba(0,0,0,0.65));">
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#FFFFFF; margin:0; opacity:0.85;">
+          Jackson Hung — SCAJ Tokyo 2025
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     3. BY THE NUMBERS
+════════════════════════════════════════════ -->
+<section style="background:#F5F5F5; padding: 80px 64px;" class="abu-section-pad">
+
+  <div style="max-width:1200px; margin:0 auto;">
+
+    <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:11px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 48px; text-align:center;">
+      By the Numbers
+    </p>
+
+    <div class="abu-grid-4" style="border:1px solid #E0E0E0; background:#FFFFFF;">
+
+      <!-- stat 1 -->
+      <div class="abu-stat-block-light" style="padding:48px 36px; border-right:1px solid #E0E0E0;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:72px; line-height:1; color:#000000; margin:0 0 8px; letter-spacing:-0.02em;">
+          ~12<span style="font-size:32px; color:#488BED;">min</span>
+        </p>
+        <p style="font-family:'ABC Social', Arial, sans-serif; font-size:14px; color:#555555; margin:0; line-height:1.5;">
+          Brew time with PrecisionBrew™. Start to finish.
+        </p>
+      </div>
+
+      <!-- stat 2 -->
+      <div class="abu-stat-block-light" style="padding:48px 36px; border-right:1px solid #E0E0E0;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:72px; line-height:1; color:#000000; margin:0 0 8px; letter-spacing:-0.02em;">
+          67<span style="font-size:32px; color:#488BED;">%</span>
+        </p>
+        <p style="font-family:'ABC Social', Arial, sans-serif; font-size:14px; color:#555555; margin:0; line-height:1.5;">
+          Less acidic than hot-brewed coffee. Smoother by design.
+        </p>
+      </div>
+
+      <!-- stat 3 -->
+      <div class="abu-stat-block-light" style="padding:48px 36px; border-right:1px solid #E0E0E0;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:72px; line-height:1; color:#000000; margin:0 0 8px; letter-spacing:-0.02em;">
+          7<span style="font-size:32px; color:#488BED;"> markets</span>
+        </p>
+        <p style="font-family:'ABC Social', Arial, sans-serif; font-size:14px; color:#555555; margin:0; line-height:1.5;">
+          Countries where bre:zi machines are brewing right now.
+        </p>
+      </div>
+
+      <!-- stat 4 -->
+      <div class="abu-stat-block-light" style="padding:48px 36px;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:72px; line-height:1; color:#000000; margin:0 0 8px; letter-spacing:-0.02em;">
+          3<span style="font-size:32px; color:#488BED;"> shows</span>
+        </p>
+        <p style="font-family:'ABC Social', Arial, sans-serif; font-size:14px; color:#555555; margin:0; line-height:1.5;">
+          Global coffee expos in 2025 — Houston, Tokyo, Shenzhen.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     4. THE TEAM
+════════════════════════════════════════════ -->
+<section style="background:#000000;">
+
+  <!-- full-width team photo -->
+  <div style="width:100%; height:480px; overflow:hidden; position:relative;">
+    <img
+      src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/2091_2.png"
+      alt="bre:zi team"
+      style="width:100%; height:100%; object-fit:cover; display:block; object-position:center 20%;"
+    />
+    <div style="position:absolute; inset:0; background:linear-gradient(transparent 40%, rgba(0,0,0,0.7));"></div>
+    <div style="position:absolute; bottom:0; left:0; right:0; padding:40px 64px;">
+      <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 8px;">
+        The Team
+      </p>
+      <h2 style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:clamp(32px, 4vw, 52px); line-height:1.05; color:#FFFFFF; margin:0;">
+        People who give a damn.
+      </h2>
+    </div>
+  </div>
+
+  <!-- team grid -->
+  <div style="padding:0 64px 80px; max-width:1200px; margin:0 auto; box-sizing:border-box; width:100%;">
+
+    <div class="abu-grid-team" style="margin-top:48px; border-top:1px solid #222222;">
+
+      <!-- member 1 -->
+      <div style="padding:28px 24px 28px 0; border-bottom:1px solid #222222; border-right:1px solid #222222;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:20px; color:#FFFFFF; margin:0 0 4px; line-height:1.1;">Jackson Hung</p>
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0;">Founder</p>
+      </div>
+
+      <!-- member 2 -->
+      <div style="padding:28px 24px; border-bottom:1px solid #222222; border-right:1px solid #222222;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:20px; color:#FFFFFF; margin:0 0 4px; line-height:1.1;">Graves Ho</p>
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0;">Co-Founder</p>
+      </div>
+
+      <!-- member 3 -->
+      <div style="padding:28px 24px; border-bottom:1px solid #222222; border-right:1px solid #222222;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:20px; color:#FFFFFF; margin:0 0 4px; line-height:1.1;">Yuet Keung</p>
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0;">Product &amp; R&amp;D</p>
+      </div>
+
+      <!-- member 4 -->
+      <div style="padding:28px 0 28px 24px; border-bottom:1px solid #222222;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:20px; color:#FFFFFF; margin:0 0 4px; line-height:1.1;">Rosanna Chan</p>
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0;">Industrial Design</p>
+      </div>
+
+      <!-- member 5 -->
+      <div style="padding:28px 24px 28px 0; border-right:1px solid #222222;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:20px; color:#FFFFFF; margin:0 0 4px; line-height:1.1;">Layla</p>
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0;">Admin</p>
+      </div>
+
+      <!-- member 6 -->
+      <div style="padding:28px 24px; border-right:1px solid #222222;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:20px; color:#FFFFFF; margin:0 0 4px; line-height:1.1;">Sancho Cao</p>
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0;">Marketing</p>
+      </div>
+
+      <!-- member 7 -->
+      <div style="padding:28px 24px; border-right:1px solid #222222;">
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:20px; color:#FFFFFF; margin:0 0 4px; line-height:1.1;">Kosaka Rin</p>
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0;">Customer Success</p>
+      </div>
+
+      <!-- placeholder 8 — empty cell for grid balance -->
+      <div style="padding:28px 0 28px 24px;">
+        <!-- intentionally empty -->
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     5. ON THE ROAD
+════════════════════════════════════════════ -->
+<section style="background:#FFFFFF; padding:96px 64px;" class="abu-section-pad">
+
+  <div style="max-width:1200px; margin:0 auto;">
+
+    <div style="margin-bottom:56px;">
+      <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:11px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 16px;">
+        Global Presence
+      </p>
+      <h2 style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:clamp(36px, 4vw, 52px); line-height:1.05; color:#000000; margin:0; max-width:540px;">
+        On the road. In the room. At the table.
+      </h2>
+    </div>
+
+    <div class="abu-grid-3">
+
+      <!-- Houston -->
+      <div>
+        <div style="width:100%; height:320px; overflow:hidden; position:relative;">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/1752166602778.jpg"
+            alt="Specialty Coffee Expo 2025, Houston"
+            style="width:100%; height:100%; object-fit:cover; display:block;"
+          />
+        </div>
+        <div style="padding:20px 0 0;">
+          <div style="width:24px; height:2px; background:#488BED; margin-bottom:12px;"></div>
+          <p class="abu-road-caption" style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 6px;">
+            Houston, USA
+          </p>
+          <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:22px; color:#000000; margin:0 0 4px; line-height:1.1;">
+            Specialty Coffee Expo 2025
+          </p>
+          <p style="font-family:'ABC Social', Arial, sans-serif; font-size:13px; color:#888888; margin:0;">
+            SCA — April 2025
+          </p>
+        </div>
+      </div>
+
+      <!-- Tokyo -->
+      <div>
+        <div style="width:100%; height:320px; overflow:hidden; position:relative;">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/SCAJ_2.jpg"
+            alt="SCAJ World Specialty Coffee Conference 2025, Tokyo"
+            style="width:100%; height:100%; object-fit:cover; display:block;"
+          />
+        </div>
+        <div style="padding:20px 0 0;">
+          <div style="width:24px; height:2px; background:#488BED; margin-bottom:12px;"></div>
+          <p class="abu-road-caption" style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 6px;">
+            Tokyo, Japan
+          </p>
+          <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:22px; color:#000000; margin:0 0 4px; line-height:1.1;">
+            SCAJ World Specialty Coffee 2025
+          </p>
+          <p style="font-family:'ABC Social', Arial, sans-serif; font-size:13px; color:#888888; margin:0;">
+            SCAJ — October 2025
+          </p>
+        </div>
+      </div>
+
+      <!-- Shenzhen -->
+      <div>
+        <div style="width:100%; height:320px; overflow:hidden; position:relative;">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0866/2496/0803/files/20251130225648_509_66.jpg"
+            alt="China Hi-Tech Fair 2025, Shenzhen"
+            style="width:100%; height:100%; object-fit:cover; display:block;"
+          />
+        </div>
+        <div style="padding:20px 0 0;">
+          <div style="width:24px; height:2px; background:#488BED; margin-bottom:12px;"></div>
+          <p class="abu-road-caption" style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 6px;">
+            Shenzhen, China
+          </p>
+          <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:22px; color:#000000; margin:0 0 4px; line-height:1.1;">
+            China Hi-Tech Fair (CHTF) 2025
+          </p>
+          <p style="font-family:'ABC Social', Arial, sans-serif; font-size:13px; color:#888888; margin:0;">
+            CHTF — November 2025
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     6. SEE YOU THERE
+════════════════════════════════════════════ -->
+<section style="background:#000000; padding:100px 64px;" class="abu-section-pad">
+
+  <div style="max-width:960px; margin:0 auto;">
+
+    <div class="abu-grid-2" style="align-items:center; gap:64px;">
+
+      <!-- left -->
+      <div>
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:11px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 24px;">
+          What's Next
+        </p>
+        <h2 style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:clamp(40px, 5vw, 64px); line-height:1.03; color:#FFFFFF; margin:0 0 28px; letter-spacing:-0.01em;">
+          See you in<br>San Diego.
+        </h2>
+        <div style="width:48px; height:2px; background:#488BED; margin-bottom:28px;"></div>
+        <p style="font-family:'ABC Social', Arial, sans-serif; font-size:16px; line-height:1.7; color:#BBBBBB; margin:0;">
+          We'll be on the floor at World of Coffee San Diego 2026, showing what precision cold brew looks like in your café or on your counter. Come find us.
+        </p>
+      </div>
+
+      <!-- right: callout card -->
+      <div style="border:1px solid #2A2A2A; padding:48px 40px; background:#0A0A0A;">
+
+        <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#488BED; margin:0 0 20px;">
+          World of Coffee
+        </p>
+
+        <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:36px; line-height:1.05; color:#FFFFFF; margin:0 0 8px;">
+          San Diego 2026
+        </p>
+
+        <p style="font-family:'ABC Social', Arial, sans-serif; font-size:14px; color:#888888; margin:0 0 32px;">
+          June 2026 — San Diego Convention Center
+        </p>
+
+        <div style="border-top:1px solid #2A2A2A; padding-top:28px;">
+          <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#666666; margin:0 0 6px;">
+            Find us at
+          </p>
+          <p style="font-family:'ABC Social Condensed', 'Arial Narrow', sans-serif; font-weight:700; font-size:48px; line-height:1; color:#488BED; margin:0; letter-spacing:-0.01em;">
+            #3618
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     FOOTER TAG
+════════════════════════════════════════════ -->
+<div style="background:#000000; padding:32px 64px; border-top:1px solid #1A1A1A; text-align:center;">
+  <p style="font-family:'ABC Social Mono', 'Courier New', monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#444444; margin:0;">
+    bre:zi — Cold is a practice.
+  </p>
+</div>

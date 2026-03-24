@@ -1,0 +1,7 @@
+Written to `round1-discussion.md`. 
+
+3 accepted, 2 rejected with rationale, 10 additional notes resolved. The big moves:
+
+- **Accepted:** Per-roaster image tints + 280pt hero images, clock arc killed (timing bar is the infographic), bean card splits by context (`.selection` vs `.marketplace` vs `.detail`)
+- **Rejected:** "More breathing room" as a general directive — the context split already solves density without removing information coffee people want. Bridge copy on Card 3 — taking the idea but rewriting it to reflect body state, not preview coffee flavor.
+- **Net build impact:** Neutral. ClockArcView removal offsets the context enum addition. ~8 day estimate holds.

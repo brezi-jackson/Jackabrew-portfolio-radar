@@ -1,0 +1,9 @@
+Done. Written to `brezi/app/design-iteration-3/round1-elon.md`.
+
+**3 non-negotiables for Round 2:**
+
+1. **Design the Why Today screen** — it's missing entirely. Jackson's locked flow has it as the emotional bridge and the palette transition vessel. Without it, the app goes from clinical to commercial with no heartbeat in between.
+
+2. **Fix the Corvus bean** — Picasso specced Ethiopia Guji Barrel Aged. Jackson locked Sadayana Winey (West Java, Indonesia, anaerobic natural, raspberry yogurt/cherry syrup/dark chocolate). Wrong coffee. Cascades through the entire data model, recommendation logic, tasting note assets, and adaptation notes.
+
+3. **Design "Your History With This Bean"** — Jackson explicitly requested it. Not in the spec. This is the retention feature that turns a marketplace into a relationship. After 3+ brews, the app should remember you and nudge subscription.

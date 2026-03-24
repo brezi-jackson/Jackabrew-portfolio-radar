@@ -1,0 +1,13 @@
+Written to `round2-discussion.md`.
+
+**What changes in Round 3:**
+
+1. **Adaptation note moves to the hinge** — inside the parameter card, between the 3-box summary and the detail table. Accepts Elon's "meaning before metrics" principle but rejects orphaning the note above numbers the user hasn't seen yet. Gets a warm background chip (`#F5F0E8`) to read as a callout.
+
+2. **Price TBD framing** — contextual banner when all visible beans are unpriced, bean-specific toast copy, subscribe banner gets "Available on select beans" qualifier. Taken cleanly.
+
+3. **Typewriter config struct** — all animation timing becomes static vars in `WhyTodayConfig`. Taken cleanly. Five minutes of work, saves a TestFlight debugging round.
+
+Plus: nav icon `cart` → `bag`, subscribed button state, First Light copy tightened ("Nothing to prove" moves to the direction line), lead icon accent confirmed in wireframes, localization infrastructure added to Phase 1, gradient banding quality gate noted.
+
+**What stays:** Everything structural from Round 2. Why Today transition, bean card architecture, history card, CTA priority flip, marketplace filters, general profile as equal card. Elon validated all of it. No reason to touch it.

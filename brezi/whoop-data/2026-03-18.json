@@ -1,0 +1,32 @@
+{
+  "date": "2026-03-18",
+  "user": {
+    "user_id": 27919542,
+    "email": "wingkithung@gmail.com",
+    "first_name": "Jackson",
+    "last_name": "Hung"
+  },
+  "cycle": {
+    "id": 1373562282,
+    "user_id": 27919542,
+    "created_at": "2026-03-17T23:28:15.817Z",
+    "updated_at": "2026-03-18T00:36:51.266Z",
+    "start": "2026-03-17T17:25:26.678Z",
+    "end": null,
+    "timezone_offset": "+08:00",
+    "score_state": "SCORED",
+    "score": {
+      "strain": 10.886772,
+      "kilojoule": 7575.96,
+      "average_heart_rate": 63,
+      "max_heart_rate": 172
+    }
+  },
+  "brezi": {
+    "strain": 10.89,
+    "max_hr": 172,
+    "brezi_score": 5,
+    "brew_recommendation": "First Light",
+    "note": "Recovery/sleep endpoints pending WHOOP app approval; using strain score for now"
+  }
+}

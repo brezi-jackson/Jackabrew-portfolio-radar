@@ -1,0 +1,12 @@
+Written to `round2-discussion.md`.
+
+**What changed:**
+- **The Blank** — Accepted all of Elon's rewrites. Modified one mid-tier sensory line to add brew-science vocabulary that manual-mode users actually speak.
+- **5 of 6 flagged lines** — Taken as written. The fixes are clean.
+- **All 4 sensory extreme rewrites** — Accepted, with one modification on Deep Work low (swapped "doesn't leave the room" for "you'll taste this one an hour from now" — concrete claim over metaphor).
+
+**What I defended:**
+- **"The question isn't whether — it's how far."** — The rhetorical reframe earns its place on a peaked morning. One flourish in nine need-text variants isn't a pattern, it's a peak. Escalated to Jackson for final call.
+
+**What I pushed:**
+- **Origin story brew-history badge** — After you've brewed with a bean, the origin sheet shows "Brewed 3 times. Average: Hit right." Closes the loop between the bean system and the emotional check-in. One conditional fetch on existing data. Costs almost nothing. Makes the sheet worth tapping twice.

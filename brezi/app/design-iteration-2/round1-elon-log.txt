@@ -1,0 +1,9 @@
+Done. Written to `brezi/app/design-iteration-2/round1-elon.md`.
+
+The review covers all 8 questions and lands on 3 must-fixes for round 2:
+
+1. **Kill the therapy voice** — "meet it where it is" appears 3 times, multiple taglines interpret the user's psychology instead of stating the situation. Every line needs to pass the text-message test.
+2. **Separate the jobs** — "Why Today" owns the state, Card 3 owns the coffee's response. Right now both say "you're rebuilding, your body needs ease" within 10 seconds of each other.
+3. **Bean emotional tags should describe the coffee, not the user** — "For when you need ease" overlaps with the tagline. Bean cards should make you want to *taste* it: "The quietest bean in the lineup."
+
+The surprise idea: occasionally, "Why Today" says nothing about coffee — just acknowledges the human. "Three weeks straight. We see that." The thing that makes someone screenshot the app.

@@ -1,0 +1,13 @@
+Written to `round4-discussion.md`.
+
+**Summary of Picasso's response:**
+
+**Changing:** Nothing. Elon's review contained zero change requests. All six R4 changes confirmed landed.
+
+**Defending (with rationale):**
+1. **Smart suppression over three-strikes** — The skip threshold (tap before Phase 2 at 2.0s) is the load-bearing detail. A user who reads "Rebuilding." and taps at 2.1s got the message — they're not a skipper. Jensen gets the exact timestamp comparison logic.
+2. **"Surprising" at zero stars** — Round 3's 5-star mapping conflated curiosity with preference. Zero stars + separate variety weighting keeps two distinct signals in two distinct channels. The variety weighting data will be v2's most valuable asset.
+
+**Designer's instinct push (Elon didn't mention):**
+- **The first Why Today should never be a surprise moment.** Defensive implementation note: explicitly initialize `whyTodaySessionCount` to 0 on first launch. Don't rely on UserDefaults default behavior. One line of code prevents a corrupted counter from firing "You showed up. That's the whole thing." on a user's second-ever session — a line that only earns its weight after twelve viewings.
+- **The first emotional check-in should default-highlight nothing.** The emptiness is deliberate — the app says "I'm listening. You go first."

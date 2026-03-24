@@ -1,0 +1,13 @@
+Final sign-off written to `brezi/app/design-iteration-3/final-signoff.md`.
+
+Five sections as requested:
+
+1. **Ready to build verdict** — Yes. 14/14 brief alignment, 4 of 7 extensions approved for v1, 3 deferred to v1.1.
+
+2. **Micro-fixes for Jensen** — Bridge line copy fix (use roaster emotional tags, not generic origin language), Tide Pool afternoon copy fix, maturation increment trigger, veteran template resolution (display-time only), return reset ordering, general settings gate, template variable safety rule with unit test matrix.
+
+3. **BeanSeed additions** — 9 new fields (roasterName, price, shopifyUrl, shopifyProductID, roastScore, sweetnessScore, acidityScore, tastingNoteIcons, bagImageName) plus 8 fields from Picasso's locked spec (emotionalTag, showEmotionalTagOnCard, imageBgTint, cardVariant, bestForProfiles, beanSubtitle, roasterLocation, description). Full seed data for all 3 beans included as paste-ready Swift.
+
+4. **Priority build order** — 5 phases across 9 working days. Phase 1-2 (foundation + bean cards), Phase 3 (detail + marketplace), Phase 4 (palette transition + maturation + temporal extensions), Phase 5 (integration + TestFlight). Cut list ordered by impact.
+
+5. **Shopify URLs** — Regent is live (brezicoffee.com, Product ID `10151173947683`, $27.00). Stitch and Corvus are TBD — Price TBD state with NOTIFY ME banner ships for both. Action item flagged for Jackson to get pricing before Phase 3 (~Day 5).

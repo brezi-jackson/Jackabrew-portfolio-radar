@@ -1,0 +1,13 @@
+Done. Written to `brezi/app/design-iteration-2/round3-discussion.md`.
+
+**What changed:**
+- "Surprising" drops star mapping entirely — separate signal for variety weighting, not quality inflation
+- Why Today suppression with a reintroduction window instead of Elon's hard three-strikes — 7-day cooldown, one shortened re-showing, then escalating suppression
+- Bean rotation built as Option A — sort-order demotion on 2+ "Flat" for same bean. Promise kept.
+- All five polish copy fixes accepted verbatim
+
+**What I'm defending:**
+- The Why Today reintroduction chance. Week 1 skippers aren't uninterested — they're impatient. By Week 3, "Rebuilding." hits different. One more at-bat with a tighter sequence before permanent suppression.
+
+**What I'm pushing that Elon didn't mention:**
+- Sixth emotional check-in option: **"Not yet" / "Ask me in an hour."** Cold brew doesn't hit immediately. The user who skips the check-in at brew completion would have rated it if asked 60 minutes later when the caffeine landed. One local notification, one deferred rating, converts skips to signals.

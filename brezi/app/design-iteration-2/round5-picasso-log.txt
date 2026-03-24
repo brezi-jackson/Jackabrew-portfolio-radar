@@ -1,0 +1,13 @@
+Round 5 is written to `/Users/jackson/.openclaw/workspace/brezi/app/design-iteration-2/round5-picasso.md`.
+
+Seven extensions, all additive to the locked R4 spec:
+
+1. **State-Bean Bridge Lines** — 12 new strings connecting body state to specific bean ("Gentle origin for a low morning. That's the match.")
+2. **Four-Node "Why This Brew" Chain** — Bean enters the reasoning chain with 13 pairing rationale strings
+3. **Why Today Maturation** — Copy register shifts across 3 maturity tiers (new/familiar/veteran), 18 new need-text variants, veteran tier references user's own history
+4. **State-Aware Flavor Framing** — 12 one-sentence intros prepended to sensory descriptions
+5. **Pattern Vocabulary** — One-time dismissible pattern summary at 15+ brews ("First Light brewer. Mid-recovery mornings. Guatemala Antigua, mostly.")
+6. **Full-Day Emotional Arc** — Post-brew card shifts through 3 temporal phases (recent/afternoon/evening), 10 new strings
+7. **Return Moments** — Custom Why Today variants after 3+ day absence, suppression reset
+
+69 new copy strings total. Zero structural changes. Zero locked decisions reopened. ~4 days of build work post-R4.

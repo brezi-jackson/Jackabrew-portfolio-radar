@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<JScopeProject>
+    <FileVersion major="1" minor="1" />
+    <Project>
+        <Configuration>
+            <JLink>
+                <Options Connection="1" IsRTTSession="0" IsRTTWithTimeStamp="0" SamplingPeriod="100" SerialNo="0" JTAG_IRPre="0" JTAG_DRPre="0" IP="" TargetDevice="STM32F103RC" TargetInterface="SWD" InterfaceSpeed="4000" />
+            </JLink>
+            <ElfFile Name="C:\Users\He Zengfeng\Desktop\240924-v3\Output\atk_f103.axf" />
+            <Scope>
+                <Options TimeResolutionUs="1000000" />
+            </Scope>
+        </Configuration>
+        <Windows>
+            <Graph Show="1" />
+            <Watch Show="1" />
+        </Windows>
+        <SelectedSymbols>
+            <Symbol>
+                <Options Name="dir_0" Address="0x200002B8" Type="uchar" TypeID="6" Size="1" GraphColorRed="255" GraphColorGreen="255" GraphColorBlue="255" YMinSampled="0" YMaxSampled="1" YAvgSampled="0.194243" Offset="4" ShowInGraph="1" YOffset="2" IsAutoConfig="0" YResolution="1" MaxValue="255" File="..\..\Drivers\BSP\MOTOR\motor.c" Scope="0" DrawStyle="0" NameWithParents="dir_0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="dir_1" Address="0x200002B9" Type="uchar" TypeID="6" Size="1" GraphColorRed="255" GraphColorGreen="255" GraphColorBlue="0" YMinSampled="0" YMaxSampled="1" YAvgSampled="0.472205" Offset="5" ShowInGraph="1" YOffset="2" IsAutoConfig="0" YResolution="1" MaxValue="255" File="..\..\Drivers\BSP\MOTOR\motor.c" Scope="0" DrawStyle="0" NameWithParents="dir_1" />
+            </Symbol>
+            <Symbol>
+                <Options Name="TEC_1" Address="0x200002C0" Type="float" TypeID="1" Size="4" GraphColorRed="255" GraphColorGreen="0" GraphColorBlue="0" YMinSampled="0" YMaxSampled="50" YAvgSampled="9.70836" Offset="6" ShowInGraph="1" YOffset="-3" IsAutoConfig="0" YResolution="10" MaxValue="-2147483648" File="..\..\Drivers\BSP\MOTOR\motor.c" Scope="0" DrawStyle="0" NameWithParents="TEC_1" />
+            </Symbol>
+            <Symbol>
+                <Options Name="TEC_0" Address="0x200002BC" Type="float" TypeID="1" Size="4" GraphColorRed="85" GraphColorGreen="0" GraphColorBlue="255" YMinSampled="0" YMaxSampled="50" YAvgSampled="23.614" Offset="10" ShowInGraph="1" YOffset="-3" IsAutoConfig="0" YResolution="10" MaxValue="-2147483648" File="..\..\Drivers\BSP\MOTOR\motor.c" Scope="0" DrawStyle="0" NameWithParents="TEC_0" />
+            </Symbol>
+        </SelectedSymbols>
+    </Project>
+</JScopeProject>

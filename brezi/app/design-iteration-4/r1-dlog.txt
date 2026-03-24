@@ -1,0 +1,9 @@
+Written to `round1-discussion.md`. Here's the stance:
+
+**Accepted fully:** Sleep-safe calc fix (`brew_end + 15h`) and long-press dose acceleration. Both correct, both non-negotiable. No argument.
+
+**Pushed back on:** Pattern card threshold at 3. Counterproposal keeps pattern card at 5 check-ins but adds a lighter "patterns emerging" insight line at 3, plus the one-time toast. WHOOP users are trained to distrust small-sample insights — 3 data points isn't a pattern, it's a sample. Two reward moments instead of one premature one.
+
+**Also pushed back on:** Evening state minimalism (restraint is the brand, no reliable real-time wearable data to fill it with), onboarding hardware mention (App Store handles context), and recovery dots ambiguity (non-issue with the 48px percentage anchor above).
+
+**Added:** Dose boundary glow at min/max, "BREW ANYWAY" showing projected sleep-safe time. Seven total changes for Round 2.

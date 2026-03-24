@@ -1,0 +1,11 @@
+Done. Written to `brezi/app/design-iteration-2/round3-picasso.md`.
+
+**What Round 3 delivers:**
+
+- **17 line rewrites, zero structural changes** — this is a copy scalpel, not a redesign
+- **The Blank gets a soul** — "Brezi just holds the temperature" replaces "Brezi just executes." Ownership over absence.
+- **6 Elon audit fixes shipped** — personified nervous system killed, TED Talk flourish killed, startup-tweet surprise killed, repeated punchlines killed, terroir lecture killed
+- **1 line defended** — "The question isn't whether — it's how far." Peaked mornings lean forward. Your call if you disagree.
+- **Sensory extremes sharpened** — Tide Pool low leads with "Thin and transparent" not four negatives. Deep Work low ends with "You'll taste this one an hour from now" not "Dense and serious." Voltage low drops the repeated punchline.
+- **Brew-history badge on origin sheet** — "Brewed 3 times. Average: Hit right." One Core Data fetch, two lines of text. Closes the bean-to-feedback loop.
+- **Complete diff table** (Section 15) so Jensen can see exactly what changed without re-reading 11,000 words

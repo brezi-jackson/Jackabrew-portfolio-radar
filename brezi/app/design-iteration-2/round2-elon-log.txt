@@ -1,0 +1,9 @@
+Written to `brezi/app/design-iteration-2/round2-elon.md`.
+
+The review covers all 8 questions and lands on **3 must-fixes for Round 3:**
+
+1. **Give The Blank a personality** — current copy is three variations of "you're on your own." Power users deserve respect, not absence. Full rewrites provided.
+2. **Six surgical copy rewrites** — a personified nervous system, a TED Talk flourish, a startup-tweet surprise line. All flagged with specific replacements.
+3. **Sensory copy specificity at the extremes** — mid-tier descriptions are the best copy in the app, but high/low tiers occasionally flatten into generality or repeat the tagline's punch line. Four specific examples with rewrites.
+
+Bottom line: the architecture is lockable. The voice is 94% correct. Round 3 is polish, not restructuring.

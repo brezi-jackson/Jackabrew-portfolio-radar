@@ -1,0 +1,21 @@
+Done. Written to `/brezi/app/design-iteration-3/round1-picasso.md`.
+
+**What's in there — 14 sections, 54 new strings, 12 new components:**
+
+**1. Dual Palette System** — Health side stays dark/cool (#000000, #488BED). Coffee side gets warm cream (#FAF6F0), amber (#D4A96A), sage green (#5B8C5A). The seam is at the brew profile suggestion. Nav bar stays dark everywhere.
+
+**2. Bean Card Visual Design** — Two variants: light roast (white card) and dark roast (#2A2520 card). All 3 real beans spec'd with complete data models. Roaster name, bean image, tasting note icons, flavor sliders, recommendation tag, price, Add to Cart, and a "BREW WITH THIS" CTA.
+
+**3. Bean-First Flow (4 screens):**
+- **Screen A** (Dashboard): Card 3 now shows "BREZI SUGGESTS: First Light" with "CHOOSE YOUR BEAN" as primary CTA + "Use general settings" fallback
+- **Screen B** (Bean Selection): Recommended beans filtered by profile + general profile option + horizontal browse + marketplace link. Background transitions to warm cream.
+- **Screen C** (Brew Settings): Shows "Optimized for: [Bean Name] x [Profile]" with bean-specific parameter adjustments (temp/time/dose deltas). Includes serving infographic and flavor preview.
+- **Screen D** (Brew): Unchanged except post-brew card gains bean name line
+
+**4. Serving Infographic Card** — Cup icons (SF Symbol, amber) for serving count. Clock arc showing brew-safe window (6am to cutoff). Horizontal timing bar with sun/moon icons. Profile-specific cutoff times (Voltage: noon, Tide Pool: 4pm).
+
+**5. Flavor Visualization** — Gradient spectrum sliders (not stepped) for Roast/Sweetness/Acidity. Positioned dot indicator. 14 custom flat vector tasting note icons in rounded containers. Full illustration commissioning brief included.
+
+**6. Marketplace** — Pushed view (not a tab). Profile-based filter chips. Recommended section at top. Subscribe & Save banner (15% off). "Add to Cart" opens Shopify in SFSafariViewController. "NOTIFY ME" for TBD-price beans. Footer with partnership email.
+
+**Build order: ~8 days post-R3, parallelizable. 15 decisions locked.**

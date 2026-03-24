@@ -1,0 +1,13 @@
+Done. Review written to `round3-elon.md`.
+
+**Verdict: Approve with 3 fixes.**
+
+The spec is engineering-ready. All R2 feedback landed correctly — manual recovery daily reset, brief corrections, history progressive states. No structural concerns remain.
+
+The three non-negotiable fixes are all edge cases that surface in week 2 of daily use:
+
+1. **WHOOP/Oura recovery mapping** — needs an explicit, isolated mapping function so Oura calibration can be adjusted without a refactor
+2. **Immutable brew log on recovery update** — if a user updates their recovery after brewing, the brew log must preserve the original score or the pattern engine's data gets corrupted
+3. **Midnight state resolution** — yesterday's caffeine countdown card must not gate today's brew; afternoon brewers would be blocked until 6 AM the next day
+
+Everything else ships as-is. Architecture locked, copy locked, caffeine math locked.

@@ -1,0 +1,22 @@
+Written to `/Users/jackson/.openclaw/workspace/brezi/app/design-iteration-2/round2-picasso.md`.
+
+The Round 2 emotional layer is locked. Here's what changed from Round 1:
+
+**Voice fixes:**
+- Killed every therapy-voice line ("meet it where it is" x3, "that's not holding back," preemptive reassurance). Every line passes the text-message test now.
+- "Working." → "Steady." for mid tier.
+
+**Architecture fixes:**
+- **Why Today owns the state** ("Rebuilding." + data line + what the body needs)
+- **Card 3 owns the response** (brew-forward taglines about what the coffee does, not what the body is)
+- **Bean tags describe the coffee** ("The quietest bean in the lineup" not "For when you need ease")
+- No redundancy between any two layers
+
+**Adds:**
+- Tier word leads on Why Today (not the number) — earns the screen time
+- Haptic on tier word — single soft tap, 3 lines of code
+- Surprise moment every 10-15 sessions — "You showed up. That's the whole thing." No sell.
+- Happy path feedback — "First Light on mid-recovery mornings. 10 for 10. Your baseline's dialed."
+- Front-loaded sensation in all sensory copy — taste first, observation second
+
+All 15 taglines, 15 cup feelings, 15 sensory descriptions, 11 complete bean profiles, 9 need-text variants, 8 surprise lines, and 5 emotional feedback acknowledgments are written out and paste-ready.

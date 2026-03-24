@@ -1,0 +1,7 @@
+Written to `round1-elon.md`. 
+
+The three fixes for Picasso in Round 2:
+
+1. **Give each roaster visual identity on the card** — bigger image container (280pt+), tinted image backgrounds per roaster brand, swap "RECOMMENDED FOR YOU" for something warmer like "TODAY'S PICK"
+2. **Kill the clock arc** — the timing bar already does the job better and matches the slider visual language. Replace the clock with a bold cutoff time display.
+3. **Separate selection cards from purchase cards** — Screen B should only show "BREW WITH THIS" (no price, no Add to Cart). Save the purchase UI for the marketplace and detail view. Add a `context` parameter to `BeanCardView`.

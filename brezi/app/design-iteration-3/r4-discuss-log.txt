@@ -1,0 +1,8 @@
+Done. Round 4 discussion written.
+
+**Summary of decisions:**
+1. **Accept** the general settings shortcut gate — only visible after 3 completed full flows. One conditional, no design changes. Elon caught a real contradiction.
+2. **Defer** the Corvus "Medium-Light" label to Jackson — recommend keeping `.medium` since the slider at 0.45 communicates the nuance visually.
+3. **Acknowledge** the pricing timeline question as a business item, not a design item. Spec handles both states already.
+
+One spec addition. Zero revisions. The coffee side is locked.

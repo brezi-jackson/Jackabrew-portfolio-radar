@@ -1,0 +1,17 @@
+Written to `brezi/app/design-iteration-2/round1-picasso.md`.
+
+Here's the summary of what I designed:
+
+**1. Emotional Recommendation Card** — Replaces the clinical parameter block with: profile gradient strip, recovery-tier-aware emotional tagline (15 combinations written), and a "This cup is: Soft. Grounding. Unhurried." feeling-words strip. Parameters slide below the emotional layer.
+
+**2. Bean Selection Layer** — 11 specialty beans across 4 profiles, each with: origin + processing, flavor-as-feeling descriptions ("Soft, floral, asks nothing of you"), emotional tags ("For when you need ease"), pairing notes explaining why this bean meets this brew, and origin stories written like film loglines. New `BeanProfile` Core Data entity.
+
+**3. "Why Today" Transitional Screen** — A 6-second (skippable) moment between check-in and dashboard: your state in one line → what your body needs → "This is what meets you there →". Three phases of text with staggered animation. Fires once per day.
+
+**4. Flavor Preview** — Full sensory descriptions per profile x tier (15 written). Not tasting notes — texture, temperature feel, the *experience* of drinking. "A cup that stays quiet. Floral up front — jasmine, a trace of bergamot — then it settles into something sweet and round."
+
+**5. Post-Brew Emotional Check-In** — Replaces stars as primary: "How did that land?" with feeling options (Hit right / Needed more / Too much / Surprising / Flat). Maps to stars internally. Accumulates over time to shift future recommendations.
+
+**6. Origin Stories** — Complete for all 11 beans. One-line hooks for cards, full stories in half-sheet modals. "Yirgacheffe is where coffee began — not as a commodity, but as a cherry growing wild in Ethiopian highland forests."
+
+Every copy string is written. Every component is named. Integration points with v3.0 are mapped. Build order adds ~1 day (15 working days to TestFlight).

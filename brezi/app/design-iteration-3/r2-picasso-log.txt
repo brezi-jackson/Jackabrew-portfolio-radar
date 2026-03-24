@@ -1,0 +1,21 @@
+Done. The complete Round 2 spec is written to `/Users/jackson/.openclaw/workspace/brezi/app/design-iteration-3/round2-picasso.md`.
+
+**What's covered across 20 sections:**
+
+1. **Dual Palette System** — health dark vs coffee warm, temperature-based transition
+2. **Full 6-Screen Flow** — dashboard through post-brew
+3. **Why Today (NEW)** — the emotional bridge and palette transition hero moment, with typewriter animation, per-profile body-state copy, and once-per-day animation logic
+4. **Bean Cards** — 3 context modes (selection/marketplace/detail), 2 visual variants (light/dark), per-roaster imageBgTint, 280pt images, "TODAY'S PICK" tag
+5. **Bean Selection (Screen 3)** — recommended beans + general profile as equal card + browse section
+6. **Brew Settings (Screen 4)** — bean-specific and general variants, adaptation notes, parameter adjustments
+7. **Bean Detail View** — full origin/flavor/pairing/purchase, CTA priority flip after 3+ brews
+8. **Flavor Visualization** — gradient sliders with contrast-fixed dark variants, lead icon accent treatment, 15 tasting note icons
+9. **Serving Infographic** — cup icons + bold cutoff time + timing bar (clock arc killed)
+10. **Your History With This Bean (NEW)** — brew count, best recovery, mini chart, insight line, compact marketplace variant
+11. **Marketplace** — filter chips, guided empty states, subscribe banner, subscription management in Settings
+12-20. **Screens 5-6, Navigation tree, Animations, Components summary, Data model, Build order (9 days), Complete copy audit (~85 strings), 20 locked decisions**
+
+**Three non-negotiables from Elon's critique — all addressed:**
+- Why Today designed as the soul of the transition
+- Corvus corrected to Sadayana Winey (all data, tasting notes, recommendation mapping)
+- Bean history designed as the retention feature

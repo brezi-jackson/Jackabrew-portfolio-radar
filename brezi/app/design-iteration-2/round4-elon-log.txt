@@ -1,0 +1,3 @@
+Done. Written to `brezi/app/design-iteration-2/round4-elon.md`.
+
+The review signs off on the lock. Picasso addressed all six issues — three verbatim, one improved (smart suppression with reintroduction beats my simpler three-strikes model), and added "Not yet" which I didn't think to ask for. No Round 5. The spec is buildable.

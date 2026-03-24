@@ -1,0 +1,15 @@
+Written to `brezi/app/design-iteration-2/round4-picasso.md`.
+
+**Round 4 consolidates everything from Elon's final review into a buildable spec. Six changes:**
+
+1. **"Surprising" decoupled from stars** — no quality inflation. Separate variety weighting signal. HistoryView shows the label, not inflated 5-star ratings.
+
+2. **Why Today smart suppression** — 3 consecutive skips -> 7-day cooldown -> shortened reintroduction (3.5s instead of 5.5s) -> watch = resume, skip = 30-day suppress -> escalate to permanent. One extra chance with better pacing instead of three-strikes-and-out.
+
+3. **Bean rotation built** — `rotateBeanForProfile()` demotes a bean to last position after 2+ "Flat" ratings. Sort-order swap, not removal. "We'll rotate the origin next time" is now a kept promise.
+
+4. **Five polish copy fixes** — "pulls back one step" (mirrors user language), "bump the dose" (specific mechanic), locked_in gate confirmed at 5+, "runs whatever you load" (machine language for The Blank), "Usually" not "Average" (honest methodology).
+
+5. **"Your Yirgacheffe" relationship line** — at 5+ brews, origin story sheet says "Your Yirgacheffe. At this point, basically." Uses `bean.region` as the short name because that's how coffee people talk.
+
+6. **"Not yet / Ask me in an hour"** — sixth check-in option with 60-minute deferred notification. Respects the caffeine timeline. Converts skips into real signals. 24-hour expiration on pending ratings.

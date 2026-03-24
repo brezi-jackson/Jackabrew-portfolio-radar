@@ -1,0 +1,18 @@
+Done. Written to `brezi/app/design-iteration-3/round5-picasso.md`.
+
+**What this document is:** The single definitive build spec for Jensen. Everything consolidated — no need to cross-reference previous rounds.
+
+**What it incorporates from all 5 rounds:**
+
+- **Round 3 base** (136KB): All 6 screens, all components, dual palette, bean cards, marketplace, flavor visualization, serving infographic, animations
+- **Round 4 fix:** General settings shortcut gated behind `completedBrewFlows >= 3` — new users must experience the palette transition 3x before bypass appears
+- **Round 5 v1 extensions (4):**
+  1. State-bean bridge lines using roaster vocabulary ("Floral, bright origin" not "Gentle origin")
+  2. Why Today maturation (new → familiar → veteran) with dynamic references and nil fallbacks
+  3. Full-day emotional arc (Card 3 changes: recent → afternoon → evening)
+  4. Return moments (3+ day absence → suppression reset + return copy)
+- **All micro-fixes:** Afternoon Tide Pool copy, maturation increment on display only, veteran template render-time resolution, return reset before suppression check, bean card left border uses active profile gradient
+
+**What's deferred to v1.1:** Four-node chain, flavor framing, pattern vocabulary.
+
+**Counts:** ~150 strings, 14 new components, 21 sections, 25 decisions. 9-day build estimate holds.
