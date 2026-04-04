@@ -154,8 +154,12 @@ send('\n'.join(news_lines))
 SECTORS = {
     "🤖 AI & Semiconductors": ["NVDA","AMD","MRVL","AVGO","TSM","AMAT","MU","ARM","INTC"],
     "⚡ New Energy & Nuclear": ["URNM","NNE","OKLO","VST","CEG","FSLR"],
-    "🚀 Aerospace & Space":   ["RKLB","LUNR","ASTS","JOBY","LMT","RTX"],
+    "🚀 Aerospace & Space":   ["RKLB","LUNR","ASTS","JOBY","LMT","RTX","NOC"],
     "🧬 Biotech & AI Drug":   ["RXRX","CRSP","ISRG","MRNA","VRTX"],
+    "🦾 Humanoid Robotics":   ["TSLA","ABB","6954.T","6506.T"],
+    "💰 Crypto Infra":        ["COIN","MSTR","HOOD"],
+    "⚛️ Quantum":             ["IONQ","RGTI","QUBT","IBM"],
+    "🛡️ Defense":             ["LMT","RTX","NOC","GD","BA"],
 }
 
 scan_lines = ["**🔍 Market Scan — Key Sectors**\n"]
