@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Daily Portfolio Digest — analyst-style briefing with news summaries + insights."""
+"""Daily Portfolio Digest — portfolio snapshot + market sector scan + watchlist radar."""
 import os, requests, csv, xml.etree.ElementTree as ET, re
 from pathlib import Path
 from datetime import datetime, timezone
@@ -38,34 +38,31 @@ def fetch_price(sym):
         return None, None
 
 def clean(text):
-    """Strip HTML tags and whitespace from RSS description."""
     text = re.sub(r'<[^>]+>', '', text or '')
     text = re.sub(r'\s+', ' ', text).strip()
-    return text[:280] + '…' if len(text) > 280 else text
+    return text[:200] + '…' if len(text) > 200 else text
 
-def fetch_news(sym, n=2):
+def fetch_top_news(sym, n=1):
     try:
-        r = requests.get(
-            f'https://feeds.finance.yahoo.com/rss/2.0/headline?s={sym}&region=US&lang=en-US',
-            headers=YH_HEADERS, timeout=10)
+        r = requests.get(f'https://feeds.finance.yahoo.com/rss/2.0/headline?s={sym}&region=US&lang=en-US',
+                         headers=YH_HEADERS, timeout=10)
         root = ET.fromstring(r.content)
         results = []
         for item in root.findall('.//item')[:n]:
             title = clean(item.findtext('title', ''))
             desc = clean(item.findtext('description', ''))
-            summary = desc if desc and desc != title else title
-            results.append(summary)
+            results.append(desc if desc and desc != title else title)
         return results
     except Exception:
         return []
 
-# FX rates
+# ── FX ──────────────────────────────────────────────────────────────
 FX = {'USD': 1.0}
 for cur, sym in {'HKD': 'HKDUSD=X', 'JPY': 'JPYUSD=X'}.items():
     p, _ = fetch_price(sym)
     FX[cur] = p or 1.0
 
-# Load holdings
+# ── Holdings ────────────────────────────────────────────────────────
 holdings = []
 with HOLDINGS_CSV.open() as f:
     for row in csv.DictReader(f):
@@ -92,62 +89,95 @@ for h in holdings:
 
 top = sorted(holdings, key=lambda x: x['usd'], reverse=True)
 total_usd = sum(h['usd'] for h in holdings)
+movers = sorted([h for h in holdings if h['chg'] is not None], key=lambda x: abs(x['chg']), reverse=True)
 now = datetime.now(tz=timezone.utc).astimezone()
 date_str = now.strftime('%a %d %b %Y')
 
-# Brief analyst context per ticker (static backdrop, updated by holdings logic)
-BACKDROP = {
-    'NVDA':  'AI capex cycle still dominant; watch for any data center demand signals.',
-    'GOOGL': 'Cloud + AI monetization in focus; Gemini integration updates moving the needle.',
-    'INTC':  'Deep value turnaround play — execution on 18A node is the sole catalyst.',
-    'RKLB':  'Neutron development pace + contract wins are the key re-rating triggers.',
-    'URNM':  'Uranium supply constraint thesis intact; utility contracting cycle accelerating.',
-    '1211.HK': 'BYD EV export data + margin trend is the near-term price driver.',
-    '9660.HK': 'Horizon Robotics: autonomous driving SoC adoption in China OEMs.',
-    '2105.HK': 'Laekna: watch pipeline readouts.',
-    '2692.HK': 'Zhaowei: precision gearbox demand tied to robotics/EV actuator cycle.',
-    '6324.T':  'Harmonic Drive: robot joint demand surge from humanoid robotics wave.',
-    'BTC-USD':  'Macro risk-on/off + ETF flow data drives short-term; long-term thesis intact.',
-    'ETH-USD':  'ETH staking yield + L2 activity metrics are the health indicators.',
-    'RENDER-USD': 'GPU compute demand for AI/3D rendering — directional bet on decentralised AI infra.',
-    'DOGE-USD': 'Sentiment/meme driven; size accordingly.',
-}
-
-# --- Block 1: Header + Portfolio snapshot ---
-lines = [f"## 📊 Morning Briefing — {date_str}", f"**Total Invested ≈ ${total_usd:,.0f} USD**\n"]
-lines.append("**Portfolio Snapshot**")
+# ── BLOCK 1: Portfolio Snapshot ──────────────────────────────────────
+lines = [f"## 📊 Morning Briefing — {date_str}",
+         f"**Portfolio ≈ ${total_usd:,.0f} USD invested**\n"]
+lines.append("**Top Holdings**")
 for h in top[:6]:
     p_str = f"${h['price']:,.2f}" if h['price'] else "—"
     chg_str = (f"{'🟢' if h['chg'] >= 0 else '🔴'}{h['chg']:+.1f}%") if h['chg'] is not None else "—"
     lines.append(f"- **{h['name']}** ({h['sym']}) {p_str} {chg_str}")
 
-movers = sorted([h for h in holdings if h['chg'] is not None], key=lambda x: abs(x['chg']), reverse=True)[:3]
 if movers:
     lines.append("\n**Biggest Movers**")
-    for h in movers:
+    for h in movers[:3]:
         e = '🟢' if h['chg'] >= 0 else '🔴'
         lines.append(f"- {e} **{h['name']}** {h['chg']:+.1f}%")
 
+# Flag any holding with >5% single-day move as alert
+alerts = [h for h in holdings if h['chg'] is not None and abs(h['chg']) >= 5]
+if alerts:
+    lines.append("\n**⚠️ Alerts — Large Moves (>5%)**")
+    for h in alerts:
+        e = '🟢' if h['chg'] >= 0 else '🔴'
+        news = fetch_top_news(h['sym'], 1)
+        headline = f" — {news[0]}" if news else ""
+        lines.append(f"- {e} **{h['name']}** {h['chg']:+.1f}%{headline}")
+
 send('\n'.join(lines))
 
-# --- Block 2: News + insights per top 3 holdings ---
-news_lines = ["**📰 What's Moving — News + Yongping's Take**\n"]
-for h in top[:4]:
-    items = fetch_news(h['sym'], n=2)
+# ── BLOCK 2: Portfolio News + Insights ──────────────────────────────
+BACKDROP = {
+    'NVDA':      'CUDA moat + Blackwell ramp. Watch hyperscaler capex guidance.',
+    'GOOGL':     'Cloud + Gemini monetisation. Watch Search market share quarterly.',
+    'INTC':      'CHIPS Act backstop + 18A node. Turnaround story — execution is everything.',
+    'RKLB':      'Small launch dominance + Space Systems compounder. Neutron = re-rating event.',
+    'URNM':      'Uranium supply squeeze + utility contracting cycle. Long-term structural hold.',
+    '1211.HK':   'BYD: EV export growth (EU +3x) vs China domestic slowdown. Watch monthly sales.',
+    '9660.HK':   'Horizon: ADAS SoC adoption in Chinese OEMs. Design wins = catalyst.',
+    '2105.HK':   'Laekna: pre-revenue biotech. Pipeline readouts are binary events.',
+    '2692.HK':   'Zhaowei: precision gearbox demand from robotics/EV actuator wave.',
+    '6324.T':    'Harmonic Drive: strain wave gears in every serious robot joint. Humanoid wave = demand surge.',
+    'BTC-USD':   'Digital gold. ETF inflows + macro risk-on drives price. Long-term hold.',
+    'ETH-USD':   'Smart contract platform + staking yield. L2 activity = health metric.',
+    'RENDER-USD':'Decentralised GPU compute. Speculative AI infrastructure bet.',
+}
+
+news_lines = ["**📰 Portfolio News + Yongping's Take**\n"]
+for h in top[:5]:
+    items = fetch_top_news(h['sym'], n=2)
     backdrop = BACKDROP.get(h['sym'], '')
     news_lines.append(f"**{h['name']}** ({h['sym']})")
-    if items:
-        for it in items:
-            news_lines.append(f"  • {it}")
-    else:
-        news_lines.append("  • No headlines today.")
+    for it in (items or ["No headlines today."]):
+        news_lines.append(f"  • {it}")
     if backdrop:
         news_lines.append(f"  💡 *{backdrop}*")
     news_lines.append("")
 
 send('\n'.join(news_lines))
 
-# --- Block 3: Watchlist ---
+# ── BLOCK 3: Sector Market Scan ──────────────────────────────────────
+SECTORS = {
+    "🤖 AI & Semiconductors": ["NVDA","AMD","MRVL","AVGO","TSM","AMAT","MU","ARM","INTC"],
+    "⚡ New Energy & Nuclear": ["URNM","NNE","OKLO","VST","CEG","FSLR"],
+    "🚀 Aerospace & Space":   ["RKLB","LUNR","ASTS","JOBY","LMT","RTX"],
+    "🧬 Biotech & AI Drug":   ["RXRX","CRSP","ISRG","MRNA","VRTX"],
+}
+
+scan_lines = ["**🔍 Market Scan — Key Sectors**\n"]
+for sector, tickers in SECTORS.items():
+    scan_lines.append(f"**{sector}**")
+    results = []
+    for sym in tickers:
+        p, prev = fetch_price(sym)
+        if p is None: continue
+        chg = (p/prev - 1)*100 if prev else 0
+        results.append((chg, sym, p))
+    results.sort(reverse=True)
+    for chg, sym, p in results:
+        e = "🟢" if chg >= 0 else "🔴"
+        news = fetch_top_news(sym, 1)
+        headline = f" → {news[0][:90]}" if news else ""
+        scan_lines.append(f"  {e} {sym} ${p:.2f} {chg:+.1f}%{headline}")
+    scan_lines.append("")
+
+send('\n'.join(scan_lines))
+
+# ── BLOCK 4: Watchlist Radar ──────────────────────────────────────────
 wl_lines = ["**🎯 Watchlist — Entry Radar**\n"]
 with WATCHLIST_CSV.open() as f:
     for row in csv.DictReader(f):
@@ -164,14 +194,18 @@ with WATCHLIST_CSV.open() as f:
         if p and target:
             delta = (p - target) / target * 100
             if delta <= 0:
-                status = "✅ AT/BELOW TARGET — consider adding"
+                status = "✅ AT/BELOW TARGET — act now"
             elif delta <= 5:
-                status = f"🔔 {delta:.1f}% above target — getting close"
-            else:
+                status = f"🔔 {delta:.1f}% above target — close"
+            elif delta <= 15:
                 status = f"  {delta:+.1f}% above target — wait"
-            wl_lines.append(f"- **{name}** ${p:.2f} vs ${target:.2f} target — {status}")
+            else:
+                status = f"  {delta:+.1f}% above target — far"
+            wl_lines.append(f"- **{name}** ${p:.2f} vs ${target:.2f} — {status}")
         else:
             wl_lines.append(f"- **{name}**: price unavailable")
 
-wl_lines.append(f"\n*Next scheduled digest: tomorrow 10:00 HKT*")
+wl_lines.append(f"\n*Next digest: tomorrow 10:00 HKT*")
 send('\n'.join(wl_lines))
+
+print("Digest sent successfully.")
