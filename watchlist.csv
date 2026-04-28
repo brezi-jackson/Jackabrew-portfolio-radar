@@ -1,6 +1,4 @@
 Ticker,Name,Market,Desired Entry USD,Conviction,Rationale
 TSM,TSMC,US,295,High,"Current $338. AI foundry backbone — NVDA/AMD/Apple all depend on TSMC. Entry on ~12% pullback to $295 gives meaningful margin of safety. Thesis: AI capex = TSMC wafer demand."
-AMAT,Applied Materials,US,295,High,"Current $341. Semcon equipment leader, every new fab buys AMAT tools. Correlated with WFE (wafer fab equipment) cycle. Entry on pullback to $295."
-PLTR,Palantir,US,120,Medium,"Current $151 — has run 8x from 2024 lows, valuation stretched at ~60x revenue. Thesis intact (AIP enterprise adoption) but risk/reward less compelling at current price. Wait for $120 pullback."
+AMAT,Applied Materials,US,295,High,"Current $341. Semcon equipment leader. Every new fab buys AMAT tools. Correlated with WFE (wafer fab equipment) cycle. Entry on pullback to $295."
 MU,Micron,US,370,Medium,"Current $426. HBM3E inside every AI GPU, SK Hynix dominant but MU closing gap. Cyclical — any memory oversupply narrative will create entry. Target $370 on weakness."
-SMCI,Super Micro Computer,US,35,Low,"Current $31 — near target already. Speculative recovery from accounting scandal. Small position only. Binary: clean FY2025 audit = re-rate, new issue = pain."
