@@ -32,7 +32,9 @@ For each task, keep:
 - Proposed package:
   - Base salary: 16k
   - Option: to be offered; likely below Yuchuan level, with room to grow based on future role
-  - Bonus: do not mirror Yuchuan; prefer KPI / quarterly or half-year structure
+  - Bonus: KPI / quarterly or half-year structure
+- Bonus ideas under consideration:
+  - Build Roaster Pages and organize the global Roaster List into a system that can run operationally; this could satisfy a quarterly target if completion criteria are defined clearly
 - Notes:
   - Jack sees Heidi as able to carry more, mobilize resources, and use leverage well
   - Goal is not just retention, but stronger long-term motivation and expanded ownership

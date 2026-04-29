@@ -28,6 +28,8 @@ Append-only log for traceability. Keep short, factual, and dated.
   - 16k base under discussion
   - option to motivate longer-term ownership
   - bonus should not mirror Yuchuan; likely KPI/quarterly style
+- Added Heidi bonus idea for future design:
+  - Build Roaster Pages and turn the global Roaster List into a usable operating system; candidate quarterly target if acceptance criteria are made explicit
 
 ## Logging rules
 - Record only material changes, decisions, reminders, and completions.
