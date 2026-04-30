@@ -25,19 +25,18 @@ For each task, keep:
 ## P1 — Active
 
 ### Heidi 转正 package
-- Status: Active
+- Status: Done
 - Owner: Jack
-- Next step: Finalize talking points and package; discuss with Heidi
-- Deadline: 2026-04-29
-- Proposed package:
+- Next step: Define remote work arrangement for H2
+- Deadline: 2026-05-30
+- Finalized package:
   - Base salary: 16k
-  - Option: to be offered; likely below Yuchuan level, with room to grow based on future role
-  - Bonus: KPI / quarterly or half-year structure
-- Bonus ideas under consideration:
-  - Build Roaster Pages and organize the global Roaster List into a system that can run operationally; this could satisfy a quarterly target if completion criteria are defined clearly
+  - Option: 0.5%
+  - Bonus: not needed
 - Notes:
-  - Jack sees Heidi as able to carry more, mobilize resources, and use leverage well
-  - Goal is not just retention, but stronger long-term motivation and expanded ownership
+  - Heidi wants more work-from-home flexibility in the second half of the year and more opportunity to go out / see more
+  - Jack is tentatively okay with this
+  - Need a concrete remote-work structure by 2026-05-30
 
 ### Yuchuan offer
 - Status: Active
@@ -59,10 +58,10 @@ For each task, keep:
   - Need clear written milestone definitions to avoid ambiguity later
 
 ### 公司工商变更
-- Status: Active
+- Status: Done
 - Owner: Jack
-- Next step: Collect materials today, process tomorrow
-- Deadline: 2026-04-30
+- Next step: None
+- Deadline: Completed on 2026-04-29
 - Notes:
   - Keep separate from bank permission change
 
@@ -108,20 +107,20 @@ For each task, keep:
 - Notes:
   - Initial message already sent
 
-### 李琦合同
-- Status: Waiting
+### 李琦合同 / 项目 Taskforce
+- Status: Active
 - Owner: Jack
-- Next step: Follow up tomorrow; ideally push for a 20-minute sync on key terms and project rhythm
-- Deadline: 2026-04-30
+- Next step: Start building the overall taskforce around the project
+- Deadline: This week
 - Notes:
-  - First draft sent on 2026-04-28
-  - Message sent: “琦哥看看如何,可能要辛苦你帮忙定定整个项目的节奏”
+  - 琦哥 has replied
+  - Focus shifts from waiting on feedback to organizing execution structure, owners, and rhythm
 
 ### James Tabella 韩国合同
-- Status: Waiting
+- Status: Active
 - Owner: Jack
-- Next step: Wait for response to redlines and trial proposal
-- Deadline: Open
+- Next step: Draft reply to James
+- Deadline: Today / next available block
 - Trial / exclusivity logic:
   - Trial shortest 3 months, longest 6 months
   - Within 3 months, should sell first batch, e.g. 200 units
@@ -145,4 +144,5 @@ For each task, keep:
 
 ## Completed
 
-_None yet._
+- 公司工商变更
+- Heidi 转正 package（package itself finalized; remote work policy follow-up remains open）
